@@ -1,0 +1,35 @@
+
+#form {
+    
+}
+
+#messages {
+    overflow-y: auto;
+}
+
+#chatroom {
+
+    background: red;
+    position: fixed;
+    bottom: 0;
+    left: 60%;
+}
+
+
+#send-button{
+    width: 50px;
+}
+
+p {
+
+    /* margin-bottom: 12px;
+    line-height: 24px;
+    padding: 10px 20px;
+    border-radius: 25px; */
+    /* margin-left: 50%; */
+    color: white;
+    text-align: right;
+    background: blue;
+  
+  }
+
