@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../styles/SimpleMap.css'
 
 class SimpleMap extends Component {
   
