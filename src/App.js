@@ -8,6 +8,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import {BrowserRouter as Router, Switch,  Route} from 'react-router-dom'
 import Login from './components/Login';
 import PrivateRoute from './components/PrivateRoute'
+import MainContent from './components/MainContent';
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
         <Switch>
            <Route path = "/signup" component = {Signup}></Route>
            <Route path = "/login" component = {Login}></Route>
-           <PrivateRoute exact path = "/" component = {Navigation}></PrivateRoute>
+           <PrivateRoute exact path = "/" component = {MainContent}></PrivateRoute>
          </Switch>
         </AuthProvider>
       </Router>
@@ -25,10 +26,7 @@ function App() {
 
    // {/* <Signup></Signup> */}
    
-   //  <div className="App">
-   //    <Navigation></Navigation>
-   //    <SimpleMap></SimpleMap>
-   //  </div>
+
   );
 }
 
