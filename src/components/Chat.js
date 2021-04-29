@@ -4,12 +4,11 @@ import {Button, Form, FormControl, Col, Container, Row} from 'react-bootstrap';
 import "../styles/chat.css";
 import {firestore} from './Firebase';
 import {auth} from './Firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData, useCollection } from 'react-firebase-hooks/firestore';
+import { useAuth } from '../contexts/AuthContext'
 
 
 export default function Chat() {
-    const [user] = useAuthState(auth);
+    const {signup, currentUser } = useAuth();
 
     const [messages, setMessages] = useState([]);
     const [formValue, setFormValue] = useState('');
@@ -51,7 +50,7 @@ export default function Chat() {
         //         console.log("Error getting documents: ", error);
         //     });
     
-        firestore.collection("messages").where("id", "==", "gOSPjHGns0b5LAV2NLYQHeUGmc72")
+        firestore.collection("messages").where("id", "==", currentUser.uid)
             .onSnapshot((querySnapshot) => {
                 var newMessages = [];
                 querySnapshot.forEach((doc) => {
