@@ -9,9 +9,11 @@
 
 #chatroom {
 
-    background: red;
-    position: fixed;
+    background: white;
+    position: absolute;
     bottom: 0;
+    width: 25%;
+    right: 0;
     
 }
 
