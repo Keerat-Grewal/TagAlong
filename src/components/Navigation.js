@@ -4,14 +4,15 @@ import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import {Button, Form, FormControl} from 'react-bootstrap';
 import {Navbar, Nav, NavDropdown, Image, NavItem} from 'react-bootstrap'
+import {useAuth} from '../contexts/AuthContext'
+import Logout from './Logout';
+
 
 class Navigation extends Component{
     constructor(props){
         super(props);
     }
-
     render() {
-
         return(
             <Navbar bg="light" expand="lg">
             <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
@@ -26,7 +27,9 @@ class Navigation extends Component{
                 <Button variant="outline-success">Search</Button>
               </Form>
             </Navbar.Collapse>
+            <Logout></Logout>
           </Navbar>
+
         )
     }
 }
