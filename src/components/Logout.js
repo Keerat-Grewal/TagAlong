@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext'
 import {Alert, Card, Button, Form, FormControl, Container} from 'react-bootstrap'
 import {Link, useHistory} from 'react-router-dom'
 
-
+import {firestore} from './Firebase';
 
 export default function Logout() {
 
@@ -13,9 +13,21 @@ export default function Logout() {
 
    async function handleLogOut(){
       setError('')
-   
+
+   //    const usersRef = firestore.collection('users').doc(currentUser.uid);
+   //    usersRef.get().then((doc) => {
+   //       if (doc.exists) {
+   //          console.log("Document data:", doc.data().field);
+   //       } else {
+   //           // doc.data() will be undefined in this case
+   //           console.log("No such document!");
+   //       }
+   //   }).catch((error) => {
+   //       console.log("Error getting document:", error);
+   //   });
+  
+      
       try{  
-         console.log("TRYING")
          await logOut()
          history.push('/login')
       }catch(error){
@@ -25,6 +37,7 @@ export default function Logout() {
    }
 
    return (
+
       <div>
          <Button variant = "link" onClick = {handleLogOut}>Log Out</Button> 
       </div>
