@@ -1,7 +1,7 @@
 import {React, Component} from 'react';
 import { useState, useEffect } from "react";
 import useGeoLocation from './Location';
-import {Button, Modal, Form} from 'react-bootstrap';
+import {Button, Modal, Form, Container, Row, Col} from 'react-bootstrap';
 // import GoogleMapReact from 'google-map-react'
 // import Login from './Login'
 // // import Marker from './Marker'
@@ -40,60 +40,16 @@ import {Button, Modal, Form} from 'react-bootstrap';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import {firestore} from './Firebase';
 import { useAuth } from '../contexts/AuthContext'
-
-function CreateRide(props) {
-
-    const [formValue, setFormValue] = useState({
-        destination: "",
-        departure: "",
-        firstname: "",
-        lastname: "",
-        username: ""
-    });
-
-    const handleChange = (e) => {
-        setFormValue({ 
-            ...formValue, 
-            [e.target.id]: e.target.value
-        });
-    }
-
-    return (
-      <Modal
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Create a Ride!
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-            <Form.Group>
-                <Form.Label id="sign-up-text">Sign-up</Form.Label>
-                <Form.Control id="destination" type="email" placeholder="Destination" onChange={handleChange} />
-                <Form.Control id="departure" type="password" placeholder="Departure Date (Month Day, Year)" onChange={handleChange}/>
-                <Form.Control id="firstname" type="text" placeholder="First Name" onChange={handleChange}/>
-                <Form.Control id="lastname" type="text" placeholder="Last Name" onChange={handleChange}/>
-                <Form.Control id="username" type="text" placeholder="Username" onChange={handleChange}/>
-            </Form.Group>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={props.onHide(formValue)}>Submit</Button>
-        </Modal.Footer>
-      </Modal>
-    );
-}
-  
+import "../styles/map.css";
+import CreateRide from './Ride'
 
 function MapContainer() {
     const location = useGeoLocation();
 
     const style = {
         width: '60%',
-        height: '95%'
+        height: '95%',
+        position: 'relative'
     }
     
     const [showingInfoWindow, setshowingInfoWindow] = useState(false);
@@ -125,45 +81,42 @@ function MapContainer() {
         setModal(false);
     }
 
+    // const handleClick = () => {
+    //     console.log("CLICKED");
+    //     setModal(true);
+    // }
+
     useEffect(() => {
         // setup initial markers here from firebase
         
     }, []);
 
     return (
-        <div className="map-container">
+        <div>
             {location.loaded && 
-                <>
-                <Map 
-                    google={window.google} 
-                    onClick={onMapClicked}
-                    initialCenter={location.coordinates}
-                    style={style}
-                    zoom={14}>
-                    <Marker
-                        onClick={onMarkerClick}
-                        title={'testsssts'}
-                        name={'SOMA'}
-                        position={location.coordinates} >
-                    </Marker>
-                    <InfoWindow 
-                            marker={activeMarker}
-                            visible={showingInfoWindow}>
-                            <p>hello yurr</p>
-                    </InfoWindow>
-
-                </Map>
-
-                <Button variant="primary" onClick={() => setModal(true)}>
-                    Launch vertically centered modal
-                </Button>
-
-                <CreateRide 
-                    show={showModal}
-                    onHide={onHideChange}
-                />
-
-                </>
+                <Container fluid>
+                    <Row>
+                        <Col></Col>
+                        <Map 
+                            google={window.google} 
+                            onClick={onMapClicked}
+                            initialCenter={location.coordinates}
+                            style={style}
+                            zoom={14}>
+                            <Marker
+                                onClick={onMarkerClick}
+                                title={'testsssts'}
+                                name={'SOMA'}
+                                position={location.coordinates} >
+                            </Marker>
+                            <InfoWindow 
+                                    marker={activeMarker}
+                                    visible={showingInfoWindow}>
+                                    <p>hello yurr</p>
+                            </InfoWindow>
+                        </Map>
+                    </Row>
+                </Container>
             }      
         </div>
     );
