@@ -99,6 +99,7 @@ export default function Chat(props) {
         //             });
         //             setMessages(newMessages);
         //         }
+        
         //     });
 
     }, [currentUser]);
