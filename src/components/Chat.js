@@ -199,7 +199,7 @@ export default function Chat(props) {
                 </Form.Row>
             </Form>
             <div id="messages">
-                {messages && messages.map((msg, index) => <ChatMessage key={index} message={msg.message}/>)}   
+                {messages && messages.map((msg, index) => <ChatMessage key={index} message={msg.message} uid={msg.id}/>)}   
             </div>
             <Form  onSubmit={handleSubmit2} onChange={handleChange}>
                 <Form.Row id ="form">
@@ -225,8 +225,17 @@ export default function Chat(props) {
 
 function ChatMessage(props) {
     // const { msg } = props.message;
-    return (<>
-        <p>{props.message}</p>
-    </>)
+    var messageClass = ""
+    if(props.uid === auth.currentUser.uid) {
+        messageClass = 'sent'
+    }
+    else{
+        messageClass = 'received'
+    }
+    return ( 
+        <div className={`message ${messageClass}`}>
+            <p>{props.message}</p>
+        </div>
+    )
   }
   
