@@ -14,7 +14,13 @@
     bottom: 0;
     width: 25%;
     right: 0;
+    font-family: helvetica;
+    border: solid 1px #EEE;
     
+}
+
+.username {
+    top:0;
 }
 
 
@@ -35,13 +41,16 @@ p {
   
 }
 
+
 .sent p {
 color: white;
 background: #0b93f6;
 align-self: flex-end;
+
 }
 .received p {
 background: #e5e5ea;
 color: black;
+text-align: left;
 }
 
