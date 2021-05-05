@@ -23,19 +23,9 @@ export default function Chat(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         // get other username
-        usersRef.get().then((doc) => {
-            if (doc.exists) {
-                console.log("Document data:", doc.data().username);
-                setUsername(doc.data().username);
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        }).catch((error) => {
-            console.log("Error getting document:", error);
-        });
-
-        firestore.collection("messages").where("username", "==", formValue)
+        const key = formValue + username;
+        const key2 = username + formValue;
+        firestore.collection("messages").where("id", "==", key)
         .onSnapshot((querySnapshot) => {
             var newMessages = [];
             querySnapshot.forEach((doc) => {
@@ -49,8 +39,9 @@ export default function Chat(props) {
     const handleSubmit2 = (e) => {
         // send message to firebase
         e.preventDefault();
-        messagesRef.doc("gOSPjHGns0b5LAV2NLYQHeUGmc72").set({
-            id: currentUser.uid,
+        const key = formValue + username;
+        messagesRef.doc(key).set({
+            id: key,
             message: formValue2
         })
     }
