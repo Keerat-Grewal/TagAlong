@@ -14,6 +14,7 @@ export default function Chat(props) {
     const [messages, setMessages] = useState([]);
     const [formValue, setFormValue] = useState('');
     const [formValue2, setFormValue2] = useState('');
+    const [key, setKey] = useState('');
 
     const messagesRef = firestore.collection('messages');
     const usersRef = firestore.collection('users').doc(currentUser.uid);
@@ -25,25 +26,76 @@ export default function Chat(props) {
         // get other username
         const key = formValue + username;
         const key2 = username + formValue;
-        firestore.collection("messages").where("id", "==", key)
-        .onSnapshot((querySnapshot) => {
-            var newMessages = [];
-            querySnapshot.forEach((doc) => {
-                newMessages.push(doc.data().message);
-            });
-            setMessages(newMessages);
+        messagesRef.doc(key).get().then((doc) => {
+            if (doc.exists) {
+                console.log("Document data:", doc.data().username);
+                messagesRef.doc(key)
+                .onSnapshot({
+                    includeMetadataChanges: true
+                }, (doc) => {
+                    //...
+                    var newMessages = [];
+                    newMessages.push(doc.data().message);
+                    setMessages(newMessages);
+                });
+                setKey(key);
+
+            } else {
+                doc = messagesRef.doc(key2).get();
+                if (doc.exists) {
+                    console.log("Document data:", doc.data().username);
+                    messagesRef.doc(key2)
+                    .onSnapshot({
+                        includeMetadataChanges: true
+                    }, (doc) => {
+                        //...
+                        var newMessages = [];
+                        newMessages.push(doc.data().message);
+                        setMessages(newMessages);
+                    });
+                    setKey(key2);
+                }
+                else {
+                    // doc.data() will be undefined in this case
+                    //create a new doc
+                    messagesRef.doc(key).set({
+                        message: ""
+                    })
+                    messagesRef.doc(key)
+                    .onSnapshot({
+                        includeMetadataChanges: true
+                    }, (doc) => {
+                        //...
+                        var newMessages = [];
+                        newMessages.push(doc.data().message);
+                        setMessages(newMessages);
+                    });
+                    console.log("Created document!");
+                    setKey(key);
+                }
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
         });
+
+        // firestore.collection("messages").where("username", "==", formValue)
+        // .onSnapshot((querySnapshot) => {
+        //     var newMessages = [];
+        //     querySnapshot.forEach((doc) => {
+        //         newMessages.push(doc.data().message);
+        //     });
+        //     setMessages(newMessages);
+        // });
         
     }
 
     const handleSubmit2 = (e) => {
         // send message to firebase
         e.preventDefault();
-        const key = formValue + username;
         messagesRef.doc(key).set({
-            id: key,
+            id: currentUser.uid,
             message: formValue2
-        })
+        });
     }
 
     const handleChange = (event) => {
