@@ -199,7 +199,7 @@ export default function Chat(props) {
                 </Form.Row>
             </Form>
             <div id="messages">
-                {messages && messages.map(msg => <ChatMessage key={msg} message={msg.message}/>)}   
+                {messages && messages.map((msg, index) => <ChatMessage key={index} message={msg.message}/>)}   
             </div>
             <Form  onSubmit={handleSubmit2} onChange={handleChange}>
                 <Form.Row id ="form">
