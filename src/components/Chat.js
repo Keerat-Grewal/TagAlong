@@ -1,41 +1,81 @@
 // import React, {Component} from 'react';
 import React, { useRef, useState, useEffect } from 'react';
-import {Button, Form, FormControl, Col, Container, Row} from 'react-bootstrap';
+import {Button, Form, Col, Container, Row} from 'react-bootstrap';
 import "../styles/chat.css";
 import {firestore} from './Firebase';
 import {auth} from './Firebase';
 import { useAuth } from '../contexts/AuthContext'
 
 
-export default function Chat() {
-    const {signup, currentUser } = useAuth();
-
+export default function Chat(props) {
+    const {signup, currentUser} = useAuth();
+    const [username, setUsername] = useState('');
+    const [receiver, setReceiver] = useState('');
     const [messages, setMessages] = useState([]);
     const [formValue, setFormValue] = useState('');
+    const [formValue2, setFormValue2] = useState('');
+
     const messagesRef = firestore.collection('messages');
-    
+    const usersRef = firestore.collection('users').doc(currentUser.uid);
+
+    console.log("START");
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        var newMessages = this.state.messages.slice();
-        newMessages.push(this.state.currMessage);
-        this.setState({messages: newMessages});
+        // get other username
+        usersRef.get().then((doc) => {
+            if (doc.exists) {
+                console.log("Document data:", doc.data().username);
+                setUsername(doc.data().username);
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+
+        firestore.collection("messages").where("username", "==", formValue)
+        .onSnapshot((querySnapshot) => {
+            var newMessages = [];
+            querySnapshot.forEach((doc) => {
+                newMessages.push(doc.data().message);
+            });
+            setMessages(newMessages);
+        });
+        
     }
 
-    const handleChange = (input) => {
-        setFormValue(input.target.value)
+    const handleSubmit2 = (e) => {
+        // send message to firebase
+        e.preventDefault();
+        messagesRef.doc("gOSPjHGns0b5LAV2NLYQHeUGmc72").set({
+            id: currentUser.uid,
+            message: formValue2
+        })
     }
 
-    // firestore.collection("messages").where("id", "==", "gOSPjHGns0b5LAV2NLYQHeUGmc72")
-    // .onSnapshot((querySnapshot) => {
-    //     var newMessages = messages.slice();
-    //     console.log("HERE");
-    //     querySnapshot.forEach((doc) => {
-    //         newMessages.push(doc.data().message);
-    //     });
-    //     setMessages(newMessages);
-    // });
+    const handleChange = (event) => {
+        //console.log(event.target.name);
+        if(event.target.name === "username-form")
+            setFormValue(event.target.value)
+        if(event.target.name === "message-form"){
+            setFormValue2(event.target.value)
+        }
+    }
 
     useEffect(() => {
+        usersRef.get().then((doc) => {
+            if (doc.exists) {
+                console.log("Document data:", doc.data().username);
+                setUsername(doc.data().username);
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
         // const res = messagesRef.where("id", "==", "gOSPjHGns0b5LAV2NLYQHeUGmc72")
         //     .get()
         //     .then((querySnapshot) => {
@@ -50,33 +90,52 @@ export default function Chat() {
         //         console.log("Error getting documents: ", error);
         //     });
     
-        firestore.collection("messages").where("id", "==", currentUser.uid)
-            .onSnapshot((querySnapshot) => {
-                var newMessages = [];
-                querySnapshot.forEach((doc) => {
-                    newMessages.push(doc.data().message);
-                });
-                setMessages(newMessages);
-            });
+        // firestore.collection("messages").where("id", "==", currentUser.uid)
+        //     .onSnapshot((querySnapshot) => {
+        //         if (formValue != "") {
+        //             var newMessages = [];
+        //             querySnapshot.forEach((doc) => {
+        //                 newMessages.push(doc.data().message);
+        //             });
+        //             setMessages(newMessages);
+        //         }
+        //     });
 
-    }, [messages]);
+    }, [currentUser]);
 
     return(
         <>
         <Container fluid id="chatroom">
+            <Form onSubmit={handleSubmit} onChange={handleChange}>
+                <Form.Row id="username">
+                    <Col >
+                        <Form.Control
+                            name="username-form" 
+                            // className="mb-2 mr-sm-2"
+                            placeholder="Username"
+                        />
+                    </Col>
+                    <Col xs="auto">
+                        <Button id="send-button1" type="submit" className="mb-2">
+                            >
+                        </Button>
+                    </Col>
+                </Form.Row>
+            </Form>
             <div id="messages">
                 {messages && messages.map(msg => <ChatMessage key={msg} message={msg}/>)}   
             </div>
-            <Form onSubmit={handleSubmit} onChange={handleChange}>
-                <Form.Row id = "form">
+            <Form  onSubmit={handleSubmit2} onChange={handleChange}>
+                <Form.Row id ="form">
                     <Col >
                         <Form.Control 
+                            name="message-form"
                             // className="mb-2 mr-sm-2"
                             placeholder="Message"
                         />
                     </Col>
                     <Col xs="auto">
-                        <Button id="send-button" type="submit" className="mb-2">
+                        <Button id="send-button2" type="submit" className="mb-2">
                             >
                         </Button>
                     </Col>
@@ -88,8 +147,6 @@ export default function Chat() {
 
 }
 
-
-
 function ChatMessage(props) {
     // const { msg } = props.message;
     return (<>
@@ -97,61 +154,3 @@ function ChatMessage(props) {
     </>)
   }
   
-// class Chat extends Component {
-//     constructor(props){
-//         super(props);
-//         this.state = {messages: [], currMessage:""};
-//         this.handleChange = this.handleChange.bind(this);
-//         this.handleSubmit = this.handleSubmit.bind(this);
-//     }
-
-//     componentDidMount() {
-//         // get the messages from firebase
-//         const messagesRef = firestore.collection('messages');
-//         const query = messagesRef.orderBy('createdAt').limit(25);
-
-//     }
-
-//     handleSubmit(e){
-//         e.preventDefault();
-//         var newMessages = this.state.messages.slice();
-//         newMessages.push(this.state.currMessage);
-//         console.log(newMessages);
-//         this.setState({messages: newMessages});
-//     }
-
-//     handleChange(input) {
-//         let message = input.target.value;
-//         this.setState({currMessage: message})
-//     }
-
-
-//     render() {
-//         return(
-//             <>
-//             <Container fluid id="chatroom">
-//                 <div id="messages">
-//                     {this.state.messages && this.state.messages.map(msg => <p key={msg}> {msg} </p>)}   
-//                 </div>
-//                 <Form onSubmit={this.handleSubmit} onChange={this.handleChange}>
-//                     <Form.Row id = "form">
-//                         <Col >
-//                             <Form.Control 
-//                                 // className="mb-2 mr-sm-2"
-//                                 placeholder="Message"
-//                             />
-//                         </Col>
-//                         <Col xs="auto">
-//                             <Button id="send-button" type="submit" className="mb-2">
-//                                 >
-//                             </Button>
-//                         </Col>
-//                     </Form.Row>
-//                 </Form>
-//             </Container>
-//             </>
-//         )
-//     }
-// }
-
-// export default Chat;
