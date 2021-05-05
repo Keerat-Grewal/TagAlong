@@ -40,39 +40,44 @@ export default function Chat(props) {
                 });
                 setKey(key);
 
-            } else {
-                doc = messagesRef.doc(key2).get();
-                if (doc.exists) {
-                    console.log("Document data:", doc.data().username);
-                    messagesRef.doc(key2)
-                    .onSnapshot({
-                        includeMetadataChanges: true
-                    }, (doc) => {
-                        //...
-                        var newMessages = [];
-                        newMessages.push(doc.data().message);
-                        setMessages(newMessages);
-                    });
-                    setKey(key2);
-                }
-                else {
-                    // doc.data() will be undefined in this case
-                    //create a new doc
-                    messagesRef.doc(key).set({
-                        message: ""
-                    })
-                    messagesRef.doc(key)
-                    .onSnapshot({
-                        includeMetadataChanges: true
-                    }, (doc) => {
-                        //...
-                        var newMessages = [];
-                        newMessages.push(doc.data().message);
-                        setMessages(newMessages);
-                    });
-                    console.log("Created document!");
-                    setKey(key);
-                }
+            } 
+            else {
+                messagesRef.doc(key2).get().then((doc) => {
+                    if (doc.exists) {
+                        console.log("Document data:", doc.data().username);
+                        messagesRef.doc(key2)
+                        .onSnapshot({
+                            includeMetadataChanges: true
+                        }, (doc) => {
+                            //...
+                            var newMessages = [];
+                            newMessages.push(doc.data().message);
+                            setMessages(newMessages);
+                        });
+                        setKey(key2);
+                    }
+                    else {
+                        // doc.data() will be undefined in this case
+                        //create a new doc
+                        messagesRef.doc(key).set({
+                            message: ""
+                        })
+                        messagesRef.doc(key)
+                        .onSnapshot({
+                            includeMetadataChanges: true
+                        }, (doc) => {
+                            //...
+                            var newMessages = [];
+                            newMessages.push(doc.data().message);
+                            setMessages(newMessages);
+                        });
+                        console.log("Created document!");
+                        setKey(key);
+                    }
+                }).catch((error) => {
+                    console.log("Error getting document:", error);
+                });
+                
             }
         }).catch((error) => {
             console.log("Error getting document:", error);
@@ -96,6 +101,7 @@ export default function Chat(props) {
             id: currentUser.uid,
             message: formValue2
         });
+        // setFormValue2('');
     }
 
     const handleChange = (event) => {
