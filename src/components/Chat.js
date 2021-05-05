@@ -5,6 +5,7 @@ import "../styles/chat.css";
 import {firestore} from './Firebase';
 import {auth} from './Firebase';
 import { useAuth } from '../contexts/AuthContext'
+import firebase from 'firebase/app'
 
 
 export default function Chat(props) {
@@ -35,8 +36,17 @@ export default function Chat(props) {
                 }, (doc) => {
                     //...
                     var newMessages = [];
-                    newMessages.push(doc.data().message);
-                    setMessages(newMessages);
+                    var i = 0;
+                    // for (i = 0; i < doc.data().message.length; i++) {
+                    //     newMessages.push(doc.data().message[i].value);
+                    // }
+                    // for (var element in doc.data().message) {
+                    //     newMessages.push(element);
+                    // }
+                    // doc.data().message.array.forEach(element => {
+                    //     newMessages.push(element)
+                    // });
+                    setMessages(doc.data().message);
                 });
                 setKey(key);
 
@@ -51,8 +61,15 @@ export default function Chat(props) {
                         }, (doc) => {
                             //...
                             var newMessages = [];
-                            newMessages.push(doc.data().message);
-                            setMessages(newMessages);
+                            var i = 0;
+                            // for (i = 0; i < doc.data().message.length; i++) {
+                            //     newMessages.push(doc.data().message[i].value);
+                            // }
+                            // for (var element in doc.data().message) {
+                            //     newMessages.push(element);
+                            // }
+                            // setMessages(newMessages);
+                            setMessages(doc.data().message);
                         });
                         setKey(key2);
                     }
@@ -60,7 +77,7 @@ export default function Chat(props) {
                         // doc.data() will be undefined in this case
                         //create a new doc
                         messagesRef.doc(key).set({
-                            message: ""
+                            message: []
                         })
                         messagesRef.doc(key)
                         .onSnapshot({
@@ -68,8 +85,15 @@ export default function Chat(props) {
                         }, (doc) => {
                             //...
                             var newMessages = [];
-                            newMessages.push(doc.data().message);
-                            setMessages(newMessages);
+                            var i = 0;
+                            // for (i = 0; i < doc.data().message.length; i++) {
+                            //     newMessages.push(doc.data().message[i].value);
+                            // }
+                            // for (var element in doc.data().message) {
+                            //     newMessages.push(element);
+                            // }
+                            // setMessages(newMessages);
+                            setMessages(doc.data().message);
                         });
                         console.log("Created document!");
                         setKey(key);
@@ -97,9 +121,11 @@ export default function Chat(props) {
     const handleSubmit2 = (e) => {
         // send message to firebase
         e.preventDefault();
-        messagesRef.doc(key).set({
-            id: currentUser.uid,
-            message: formValue2
+        
+        // var newlist = messages.slice();
+        // newlist.push(formValue2);
+        messagesRef.doc(key).update({
+            message: firebase.firestore.FieldValue.arrayUnion({id: currentUser.uid, message: formValue2})
         });
         // setFormValue2('');
     }
@@ -173,7 +199,7 @@ export default function Chat(props) {
                 </Form.Row>
             </Form>
             <div id="messages">
-                {messages && messages.map(msg => <ChatMessage key={msg} message={msg}/>)}   
+                {messages && messages.map(msg => <ChatMessage key={msg} message={msg.message}/>)}   
             </div>
             <Form  onSubmit={handleSubmit2} onChange={handleChange}>
                 <Form.Row id ="form">
