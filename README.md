@@ -2,6 +2,9 @@ Jack Nelson
 Keerat Grewal
 Brandon Burana
 Ishaan Karvir
+
+![image](https://user-images.githubusercontent.com/39412343/117198474-ec3fb180-ad9d-11eb-8b88-4a00f233c042.png)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
