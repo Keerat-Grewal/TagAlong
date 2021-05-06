@@ -36,12 +36,13 @@ export default function CreateRide() {
     
     return (
         <>
-            <Button id="ride-btn" style={{marginLeft: 0}} variant="primary" onClick={() => setModal(true)}>
-                Launch vertically centered modal
+            <Button id="ride-btn" variant="primary" onClick={() => setModal(true)}>
+                Create Ride +
             </Button>
             <Modal
                 ref={myRef}
                 show={showModal}
+                onHide={handleClick}
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered

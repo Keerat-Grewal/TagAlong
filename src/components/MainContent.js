@@ -13,7 +13,7 @@ export default function MainContent() {
       <Navigation></Navigation>
       {/* <GoogleMap></GoogleMap> */}
       <MapContainer></MapContainer>
-      <CreateRide></CreateRide>
+      {/* <CreateRide></CreateRide> */}
       <Chat></Chat>
     </div>
    )
