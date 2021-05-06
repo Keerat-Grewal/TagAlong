@@ -47,7 +47,7 @@ export default function Signup(){
                      <Form.Label>Email</Form.Label>
                      <Form.Control type = "email" ref={emailRef} required></Form.Control>
                   </Form.Group>
-                  <Form.Group id="userName">
+                  <Form.Group id="username">
                      <Form.Label>User Name</Form.Label>
                      <Form.Control ref={userNameRef} required></Form.Control>
                   </Form.Group>                  

@@ -6,6 +6,8 @@ import {Button, Form, FormControl} from 'react-bootstrap';
 import {Navbar, Nav, NavDropdown, Image, NavItem} from 'react-bootstrap'
 import {useAuth} from '../contexts/AuthContext'
 import Logout from './Logout';
+import Logo from '../Logo2.png';
+import '../styles/navigation.css';
 
 
 class Navigation extends Component{
@@ -15,7 +17,10 @@ class Navigation extends Component{
     render() {
         return(
             <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+            {/* <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand> */}
+            <Navbar.Brand>
+                    <Image id="logo" src={Logo} />
+                </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               {/* <Nav className="mr-auto">

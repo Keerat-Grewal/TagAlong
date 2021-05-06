@@ -17,7 +17,7 @@ export function AuthProvider({children}){
          firestore.collection("users").doc(registeredUser.user.uid)
          .set({
            uid: registeredUser.user.uid,
-           userName: userName
+           username: userName
          })
        })
    }
