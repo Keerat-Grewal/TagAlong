@@ -8,13 +8,14 @@ import {useAuth} from '../contexts/AuthContext'
 import Logout from './Logout';
 import Logo from '../Logo2.png';
 import '../styles/navigation.css';
-
+import CreateRide from './Ride'
 
 class Navigation extends Component{
     constructor(props){
         super(props);
     }
     render() {
+        console.log("NAVIGATION")
         return(
             <Navbar bg="light" expand="lg">
             {/* <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand> */}
@@ -27,10 +28,11 @@ class Navigation extends Component{
                 <Nav.Link href="#home">Home</Nav.Link>
                 <Nav.Link href="#link">Link</Nav.Link>
               </Nav> */}
-              <Form inline>
+              {/* <Form inline>
                 <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                 <Button variant="outline-success">Search</Button>
-              </Form>
+              </Form> */}
+              <CreateRide></CreateRide>
             </Navbar.Collapse>
             <Logout></Logout>
           </Navbar>
