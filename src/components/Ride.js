@@ -1,9 +1,10 @@
 import React, { useRef, useState, useEffect, createRef} from 'react';
 import {Button, Form, Col, Modal, Container, Row} from 'react-bootstrap';
+import Searchbar from './Searchbar';
 import {firestore} from './Firebase';
 import {auth} from './Firebase';
 import { useAuth } from '../contexts/AuthContext'
-
+import '../styles/ride.css'
 
 export default function CreateRide() {
     const {signup, currentUser} = useAuth();
@@ -15,9 +16,9 @@ export default function CreateRide() {
                 lastname: "",
                 username: ""
             });
-    const myRef = createRef(); 
+    const destRef = useRef(null); 
     const ridesRef = firestore.collection('rides');
-
+    console.log(destRef.current);
     const handleClick = () => {
         setModal(false);
         // do firebase stuff ok
@@ -28,10 +29,21 @@ export default function CreateRide() {
     }
 
     const handleChange = (e) => {
-        setFormValue({ 
-            ...formValue, 
-            [e.target.id]: e.target.value
-        });
+        if(e.target.id === "destination") {
+            const currentState = destRef.current;
+            console.log("INSIDE destination")
+            console.log(currentState)
+            setFormValue({ 
+                ...formValue, 
+                [e.target.id]: currentState.state.name
+            });
+        }
+        else{
+            setFormValue({ 
+                ...formValue, 
+                [e.target.id]: e.target.value
+            });
+        }
     }
     
     return (
@@ -40,7 +52,6 @@ export default function CreateRide() {
                 Create Ride +
             </Button>
             <Modal
-                ref={myRef}
                 show={showModal}
                 onHide={handleClick}
                 size="lg"
@@ -49,13 +60,24 @@ export default function CreateRide() {
             >
                 <Modal.Header onClick={handleClick} closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Create a Ride!
+                    Ride Form
                 </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form.Group>
-                        <Form.Label id="sign-up-text">Sign-up</Form.Label>
-                        <Form.Control id="destination" type="email" placeholder="Destination" onChange={handleChange} />
+                        <Form.Label id="sign-up-text">Information</Form.Label>
+                        {/* <Form.Control id="destination" type="email" placeholder="Destination" onChange={handleChange} /> */}
+                        <Form.Row>
+                            <Col>
+                                <Searchbar ref={destRef}></Searchbar>
+                            </Col>
+                            
+                            <Col>
+                                <Button variant="primary" id="destination" onClick={handleChange}>&#10003;</Button>
+                            </Col>
+                            
+                        </Form.Row>
+                            {/* <Form.Control id="destination" type="text" value={destRef.current && destRef.current.state}/> */}
                         <Form.Control id="departure" type="text" placeholder="Departure Date (Month Day, Year)" onChange={handleChange}/>
                         <Form.Control id="firstname" type="text" placeholder="First Name" onChange={handleChange}/>
                         <Form.Control id="lastname" type="text" placeholder="Last Name" onChange={handleChange}/>
