@@ -48,8 +48,7 @@ function MapContainer() {
 
     const style = {
         width: '60%',
-        height: '90%',
-        position: 'relative'
+        height: '90%'
     }
     
     const [showingInfoWindow, setshowingInfoWindow] = useState(false);
@@ -101,7 +100,8 @@ function MapContainer() {
                             google={window.google} 
                             onClick={onMapClicked}
                             initialCenter={location.coordinates}
-                            style={style}
+                            containerStyle={style}
+                            // style={style}
                             zoom={14}>
                             <Marker
                                 onClick={onMarkerClick}
