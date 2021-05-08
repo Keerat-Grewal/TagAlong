@@ -48,7 +48,7 @@ function MapContainer() {
 
     const style = {
         width: '60%',
-        height: '95%',
+        height: '90%',
         position: 'relative'
     }
     

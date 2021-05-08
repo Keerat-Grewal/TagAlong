@@ -37,3 +37,16 @@
   }
 }
 
+body::-webkit-scrollbar {
+  width: 10px;
+  overflow: hidden;
+}
+
+body::-webkit-scrollbar-track {
+  background: white;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+  border-radius: 10px;
+}

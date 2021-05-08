@@ -125,7 +125,7 @@ export default function Chat(props) {
         // var newlist = messages.slice();
         // newlist.push(formValue2);
         messagesRef.doc(key).update({
-            message: firebase.firestore.FieldValue.arrayUnion({id: currentUser.uid, message: formValue2})
+            message: firebase.firestore.FieldValue.arrayUnion({id: currentUser.uid, message: formValue2, timestamp: new Date()})
         });
         // setFormValue2('');
     }
@@ -200,11 +200,11 @@ export default function Chat(props) {
                     </Form.Row>
                 </Form>    
             </div>
-            <div id="messagesBox">
+            <flexContainer id="messagesBox">
                 <div id="messages">
                     {messages && messages.map((msg, index) => <ChatMessage key={index} message={msg.message} uid={msg.id}/>)}   
                 </div>
-            </div>
+            </flexContainer>
             <div id="sendBox">
                 <Form  onSubmit={handleSubmit2} onChange={handleChange}>
                     <Form.Row id ="form">

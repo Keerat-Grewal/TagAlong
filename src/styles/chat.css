@@ -1,76 +1,121 @@
 #chatroom {
-    background: white;
+    /* background: white;
     position: absolute;
-    /* bottom: 0; */
     width: 25%;
-    height: 95%;
+    height: 100%;
     font-family: helvetica;
-    border: solid 1px black;
-    right: 0;
+    border: solid 1px gainsboro;
+    right: 10px;
+    align-items: center; */
+
+    position: absolute;
+    right: 10px;
+    height: 90%;
+    width: 25%;
     
+    font-family: helvetica;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #usernameBox {
     position: relative;
     top: 0;
-    padding-left: 5%;
-    padding-right: 5%;
+    /* padding-left: 5%; */
+    /* padding-right: 5%; */
     width: 100%;
     height: 5%;
 }
 
+#messagesBox::-webkit-scrollbar {
+    width: 10px;
+}
+
+#messagesBox::-webkit-scrollbar-track {
+    background: white;
+}
+
+#messagesBox::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+    border-radius: 10px;
+}
+
 #messagesBox {
-    position: relative;
+    /* position: relative;
     width: 100%;
     height: 90%;
     overflow-y: scroll;
+    display: flex;
+    top: 0;
+    flex-direction: column-reverse; */
+    width: 100%;
+    border: solid 1px #EEE;
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 10px;
+    overflow-y: scroll;
+    position: relative;
+    height: 90%;
 }
 
 #sendBox {
     position: absolute;
     bottom: 0;
-    padding-left: 5%;
-    padding-right: 5%;
+    /* padding-left: 5%; */
+    /* padding-right: 5%; */
     width: 100%;
-    height: 5%;
 }
 
 #messages {
-    position: absolute;
+    /* position: absolute;
     padding-left: 5%;
     padding-right: 5%;
-    width: 100%;
-    /* overflow-y: scroll; */
-}
-
-
-#send-button{
-    width: 50px;
+    width: 100%; */
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
 }
 
 p {
-
-    /* margin-bottom: 12px;
-    line-height: 24px;
-    padding: 10px 20px;
-    border-radius: 25px; */
-    /* margin-left: 50%; */
-    color: white;
-    text-align: right;
-    background: blue;
-  
+    position: relative;
+    border-radius: 20px;
+    padding: 4px 15px;
+    display: inline-block;
+    /* display: flex; */
+    /* flex-direction: column; */
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
-
 
 .sent p {
-color: white;
-background: #0b93f6;
-align-self: flex-end;
-
+    position: relative;
+    color: white;
+    background: #0b93f6;
+    /* background: ; */
+    /* align-items: flex-end; */
+    margin-left: 25%;
+    /* text-align: right; */
+    /* align-items: flex-start; */
+    /* display: inline-block; */
+    /* border-radius: 30px;
+    padding-right: 5px; */
+    /* max-width: 65%; */
+    float: right;
 }
+
 .received p {
-background: #e5e5ea;
-color: black;
-text-align: left;
+    position: relative;
+    color: black;
+    background: #e5e5ea;
+    /* align-items: flex-start; */
+    margin-right: 25%;
+    /* display: inline-block; */
+    /* position: relative; */
+    /* text-align: left; */
+    /* align-items: flex-end; */
+    /* border-radius: 30px; */
+    /* max-width: 65%; */
+    float: left;
 }
 
