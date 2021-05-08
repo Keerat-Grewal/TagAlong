@@ -17,8 +17,8 @@ export default class SearchBar extends React.Component {
   };
  
   handleSelect = address => {
-    console.log("HERE address")
-    console.log(address);
+    // console.log("HERE address")
+    // console.log(address);
     this.setState({name: address})
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))

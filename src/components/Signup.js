@@ -1,8 +1,9 @@
 
 import React, {useRef, useState} from 'react'
-import {Alert, Card, Button, Form, FormControl, Container} from 'react-bootstrap'
+import {Alert, Card, Button, Form, FormControl, Container, Image} from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext'
 import {Link, useHistory} from 'react-router-dom'
+import Logo from '../Logo2.png';
 
 export default function Signup(){
    const emailRef = useRef();
@@ -37,6 +38,7 @@ export default function Signup(){
       <Container className = "d-flex align-items-center justify-content-center"
       style={{minHeight : "100vh"}}>
         <div className="w-100" style = {{maxWidth : "400px"}}>
+        <Image style={{marginLeft: "auto", width:"100%"}} src={Logo}/>
          <Card>
             <Card.Body>
                <h2 className = "text-center mb-4">Sign Up</h2>
@@ -59,7 +61,7 @@ export default function Signup(){
                      <Form.Label>Password Confirmation</Form.Label>
                      <Form.Control type = "password" ref={passwordConfirmRef} required></Form.Control>
                   </Form.Group>
-                  <Button disabled = {loading} className = "w-100" type="submit">Sign up</Button>
+                  <Button style={{background: "#E84F11"}} disabled = {loading} className = "w-100" type="submit">Sign up</Button>
                </Form>
             </Card.Body>
          </Card>
