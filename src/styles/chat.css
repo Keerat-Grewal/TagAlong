@@ -1,26 +1,46 @@
-
-#form {
+#chatroom {
+    background: white;
+    position: absolute;
+    /* bottom: 0; */
+    width: 25%;
+    height: 95%;
+    font-family: helvetica;
+    border: solid 1px black;
+    right: 0;
     
+}
+
+#usernameBox {
+    position: relative;
+    top: 0;
+    padding-left: 5%;
+    padding-right: 5%;
+    width: 100%;
+    height: 5%;
+}
+
+#messagesBox {
+    position: relative;
+    width: 100%;
+    height: 90%;
+    overflow-y: scroll;
+}
+
+#sendBox {
+    position: absolute;
+    bottom: 0;
+    padding-left: 5%;
+    padding-right: 5%;
+    width: 100%;
+    height: 5%;
 }
 
 #messages {
-    overflow-y: auto;
-}
-
-#chatroom {
-
-    background: white;
     position: absolute;
-    bottom: 0;
-    width: 25%;
-    right: 0;
-    font-family: helvetica;
-    border: solid 1px #EEE;
-    
-}
-
-.username {
-    top:0;
+    padding-left: 5%;
+    padding-right: 5%;
+    width: 100%;
+    /* overflow-y: scroll; */
 }
 
 

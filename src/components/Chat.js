@@ -1,7 +1,7 @@
 // import React, {Component} from 'react';
 import React, { useRef, useState, useEffect } from 'react';
 import {Button, Form, Col, Container, Row} from 'react-bootstrap';
-import "../styles/chat.css";
+import '../styles/chat.css';
 import {firestore} from './Firebase';
 import {auth} from './Firebase';
 import { useAuth } from '../contexts/AuthContext'
@@ -181,43 +181,49 @@ export default function Chat(props) {
 
     return(
         <>
-        <Container fluid id="chatroom">
-            <Form onSubmit={handleSubmit} onChange={handleChange}>
-                <Form.Row id="username">
-                    <Col >
-                        <Form.Control
-                            name="username-form" 
-                            // className="mb-2 mr-sm-2"
-                            placeholder="Username"
-                        />
-                    </Col>
-                    <Col xs="auto">
-                        <Button id="send-button1" type="submit" className="mb-2">
-                            >
-                        </Button>
-                    </Col>
-                </Form.Row>
-            </Form>
-            <div id="messages">
-                {messages && messages.map((msg, index) => <ChatMessage key={index} message={msg.message} uid={msg.id}/>)}   
+        <div id="chatroom">
+            <div id="usernameBox">
+                <Form onSubmit={handleSubmit} onChange={handleChange}>
+                    <Form.Row id="username">
+                        <Col >
+                            <Form.Control
+                                name="username-form" 
+                                // className="mb-2 mr-sm-2"
+                                placeholder="Username"
+                            />
+                        </Col>
+                        <Col xs="auto">
+                            <Button id="send-button1" type="submit" className="mb-2">
+                                Submit
+                            </Button>
+                        </Col>
+                    </Form.Row>
+                </Form>    
             </div>
-            <Form  onSubmit={handleSubmit2} onChange={handleChange}>
-                <Form.Row id ="form">
-                    <Col >
-                        <Form.Control 
-                            name="message-form"
-                            // className="mb-2 mr-sm-2"
-                            placeholder="Message"
-                        />
-                    </Col>
-                    <Col xs="auto">
-                        <Button id="send-button2" type="submit" className="mb-2">
-                            >
-                        </Button>
-                    </Col>
-                </Form.Row>
-            </Form>
-        </Container>
+            <div id="messagesBox">
+                <div id="messages">
+                    {messages && messages.map((msg, index) => <ChatMessage key={index} message={msg.message} uid={msg.id}/>)}   
+                </div>
+            </div>
+            <div id="sendBox">
+                <Form  onSubmit={handleSubmit2} onChange={handleChange}>
+                    <Form.Row id ="form">
+                        <Col >
+                            <Form.Control 
+                                name="message-form"
+                                // className="mb-2 mr-sm-2"
+                                placeholder="Message"
+                            />
+                        </Col>
+                        <Col xs="auto">
+                            <Button id="send-button2" type="submit" className="mb-2">
+                                Send
+                            </Button>
+                        </Col>
+                    </Form.Row>
+                </Form>
+            </div>
+        </div>
         </>
     );
 
