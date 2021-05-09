@@ -50,7 +50,7 @@ export default function Login(){
                      <Form.Label>Password</Form.Label>
                      <Form.Control type = "password" ref={passwordRef} required></Form.Control>
                   </Form.Group>
-                  <Button style={{background: "#E84F11"}} disabled = {loading} className = "w-100" type="submit">Log In</Button>
+                  <Button style={{background: "#E84F11", border: "#E84F11"}} disabled = {loading} className = "w-100" type="submit">Log In</Button>
                </Form>
             </Card.Body>
          </Card>

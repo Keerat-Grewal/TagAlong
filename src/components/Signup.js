@@ -61,7 +61,7 @@ export default function Signup(){
                      <Form.Label>Password Confirmation</Form.Label>
                      <Form.Control type = "password" ref={passwordConfirmRef} required></Form.Control>
                   </Form.Group>
-                  <Button style={{background: "#E84F11"}} disabled = {loading} className = "w-100" type="submit">Sign up</Button>
+                  <Button style={{background: "#E84F11", border: "#E84F11"}} disabled = {loading} className = "w-100" type="submit">Sign up</Button>
                </Form>
             </Card.Body>
          </Card>

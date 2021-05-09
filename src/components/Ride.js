@@ -48,7 +48,7 @@ export default function CreateRide() {
     
     return (
         <>
-            <Button id="ride-btn" variant="primary" onClick={() => setModal(true)}>
+            <Button id="ride-btn" style={{background: "#E84F11", border: "#E84F11"}} onClick={() => setModal(true)}>
                 Create Ride +
             </Button>
             <Modal

@@ -193,7 +193,7 @@ export default function Chat(props) {
                             />
                         </Col>
                         <Col xs="auto">
-                            <Button id="send-button1" type="submit" className="mb-2">
+                            <Button id="send-button1" type="submit" className="mb-2" style={{background: "#E84F11", border: "#E84F11"}}>
                                 Submit
                             </Button>
                         </Col>
@@ -216,7 +216,7 @@ export default function Chat(props) {
                             />
                         </Col>
                         <Col xs="auto">
-                            <Button id="send-button2" type="submit" className="mb-2">
+                            <Button id="send-button2" type="submit" className="mb-2" style={{background: "#E84F11", border: "#E84F11"}}>
                                 Send
                             </Button>
                         </Col>

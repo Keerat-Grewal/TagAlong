@@ -39,7 +39,7 @@ export default function Logout() {
    return (
 
       <div>
-         <Button variant = "link" onClick = {handleLogOut}>Log Out</Button> 
+         <Button variant = "link" style={{color: "#E84F11"}} onClick = {handleLogOut}>Log Out</Button> 
       </div>
    )
 }

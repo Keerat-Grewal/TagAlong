@@ -94,8 +94,8 @@ function MapContainer() {
 
     const style = {
         
-        width: '60%',
-        height: '95%'
+        width: '70%',
+        height: '90%'
         
     }
     
@@ -142,7 +142,7 @@ function MapContainer() {
                     google={window.google} 
                     onClick={onMapClicked}
                     initialCenter={location.coordinates}
-                    style={style}
+                    containerStyle={style}
                     zoom={14}
                     styles={mapStyles.dark}
                     >

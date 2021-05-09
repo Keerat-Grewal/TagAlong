@@ -4,7 +4,7 @@ import PlacesAutocomplete, {
   getLatLng,
 } from 'react-places-autocomplete';
 import {Form} from 'react-bootstrap';
-import "../styles/searchbar.css"
+// import "../styles/searchbar.css"
  
 export default class SearchBar extends React.Component {
   constructor(props) {

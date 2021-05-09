@@ -12,6 +12,7 @@
     right: 10px;
     height: 90%;
     width: 25%;
+    top: 85px;
     
     font-family: helvetica;
     display: flex;
@@ -91,7 +92,7 @@ p {
 .sent p {
     position: relative;
     color: white;
-    background: #0b93f6;
+    background: #E84F11;
     /* background: ; */
     /* align-items: flex-end; */
     margin-left: 25%;
