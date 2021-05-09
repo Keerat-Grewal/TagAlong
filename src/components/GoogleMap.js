@@ -2,6 +2,7 @@ import {React, Component} from 'react';
 import { useState, useEffect } from "react";
 import useGeoLocation from './Location';
 import {Button, Modal, Form} from 'react-bootstrap';
+import mapStyles from './mapStyles';
 // import GoogleMapReact from 'google-map-react'
 // import Login from './Login'
 // // import Marker from './Marker'
@@ -92,8 +93,10 @@ function MapContainer() {
     const location = useGeoLocation();
 
     const style = {
+        
         width: '60%',
         height: '95%'
+        
     }
     
     const [showingInfoWindow, setshowingInfoWindow] = useState(false);
@@ -102,6 +105,7 @@ function MapContainer() {
     const [markers, setMarkers] = useState([]);
     const [showModal, setModal] = useState(false);
     const ridesRef = firestore.collection('rides');
+    const iconBase = "https://developers.google.com/maps/documentation/javascript/examples/full/images/";
     //const [selectedPlace, setselectedPlace] = useState({});
     
     const onMarkerClick = (props, marker, e) => {
@@ -139,19 +143,22 @@ function MapContainer() {
                     onClick={onMapClicked}
                     initialCenter={location.coordinates}
                     style={style}
-                    zoom={14}>
+                    zoom={14}
+                    styles={mapStyles.dark}
+                    >
+                    
                     <Marker
+                        icon={iconBase + "info-i_maps.png"}
                         onClick={onMarkerClick}
                         title={'testsssts'}
                         name={'SOMA'}
                         position={location.coordinates} >
                     </Marker>
                     <InfoWindow 
-                            marker={activeMarker}
-                            visible={showingInfoWindow}>
-                            <p>hello yurr</p>
+                                    marker={activeMarker}
+                                    visible={showingInfoWindow}>
+                                    <p>You are here</p>
                     </InfoWindow>
-
                 </Map>
 
                 <Button variant="primary" onClick={() => setModal(true)}>
