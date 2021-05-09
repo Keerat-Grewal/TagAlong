@@ -161,14 +161,14 @@ function MapContainer() {
                     </InfoWindow>
                 </Map>
 
-                <Button variant="primary" onClick={() => setModal(true)}>
+                {/* <Button variant="primary" onClick={() => setModal(true)}>
                     Launch vertically centered modal
                 </Button>
 
                 <CreateRide 
                     show={showModal}
                     onHide={onHideChange}
-                />
+                /> */}
 
                 </>
             }      
