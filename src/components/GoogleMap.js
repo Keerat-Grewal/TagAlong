@@ -41,6 +41,7 @@ import mapStyles from './mapStyles';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import {firestore} from './Firebase';
 import { useAuth } from '../contexts/AuthContext'
+import firebase from 'firebase/app'
 
 function CreateRide(props) {
 
@@ -91,7 +92,7 @@ function CreateRide(props) {
 
 function MapContainer() {
     const location = useGeoLocation();
-
+    console.log(location)
     const style = {
         
         width: '70%',
@@ -107,7 +108,7 @@ function MapContainer() {
     const ridesRef = firestore.collection('rides');
     const iconBase = "https://developers.google.com/maps/documentation/javascript/examples/full/images/";
     //const [selectedPlace, setselectedPlace] = useState({});
-    
+    console.log("INSIDE GOOGLE MAP")
     const onMarkerClick = (props, marker, e) => {
         setactiveMarker(marker);
         setshowingInfoWindow(true);
@@ -131,9 +132,20 @@ function MapContainer() {
 
     useEffect(() => {
         // setup initial markers here from firebase
-        
-    }, []);
+        // const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+        // const timestamp = "2";
+        firestore.collection("rides").where("firstname", "==", "Brandon")
+            .onSnapshot((querySnapshot) => {
+                var newMarkers = [];
+                querySnapshot.forEach((doc) => {
+                    newMarkers.push({coordinates: { lat: doc.data().lat, lng: doc.data().lng }});
+                });
+                console.log(newMarkers);
+                setMarkers(newMarkers)
+            });
 
+    }, []);
+    console.log(markers)
     return (
         <div className="map-container">
             {location.loaded && 
@@ -151,24 +163,24 @@ function MapContainer() {
                         icon={iconBase + "info-i_maps.png"}
                         onClick={onMarkerClick}
                         title={'testsssts'}
-                        name={'SOMA'}
+                        name={'You are here'}
                         position={location.coordinates} >
                     </Marker>
                     <InfoWindow 
                                     marker={activeMarker}
                                     visible={showingInfoWindow}>
-                                    <p>You are here</p>
+                                    <p>{activeMarker && activeMarker.name}</p>
                     </InfoWindow>
+                                    
+                        {markers && markers.map((m, index) => 
+                            <Marker 
+                                key={index} 
+                                position={m.coordinates}
+                                onClick={onMarkerClick}
+                                title={'nani'}
+                                name={'Brandon is offering ride to San Jose. Username: bburana'}/>
+                                )}
                 </Map>
-
-                {/* <Button variant="primary" onClick={() => setModal(true)}>
-                    Launch vertically centered modal
-                </Button>
-
-                <CreateRide 
-                    show={showModal}
-                    onHide={onHideChange}
-                /> */}
 
                 </>
             }      

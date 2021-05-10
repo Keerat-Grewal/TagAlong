@@ -3,12 +3,13 @@ import React, {Component} from 'react';
 import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import {Button, Form, FormControl} from 'react-bootstrap';
-import {Navbar, Nav, NavDropdown, Image, NavItem} from 'react-bootstrap'
+import {Navbar, Nav, NavDropdown, Image, NavItem, Modal} from 'react-bootstrap'
 import {useAuth} from '../contexts/AuthContext'
 import Logout from './Logout';
 import Logo from '../Logo2.png';
 import '../styles/navigation.css';
 import CreateRide from './Ride'
+import Searchbar from './Searchbar';
 
 class Navigation extends Component{
     constructor(props){
@@ -33,6 +34,7 @@ class Navigation extends Component{
                 <Button variant="outline-success">Search</Button>
               </Form> */}
               <CreateRide></CreateRide>
+              {/* <Searchbar style= {{margin: "auto"}}></Searchbar> */}
             </Navbar.Collapse>
             <Logout></Logout>
           </Navbar>

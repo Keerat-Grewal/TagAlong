@@ -28,6 +28,10 @@ export default function CreateRide() {
         console.log("CLICKED MODAL")
     }
 
+    const handleHide = () => {
+        setModal(false);
+    }
+
     const handleChange = (e) => {
         if(e.target.id === "destination") {
             const currentState = destRef.current;
@@ -53,12 +57,12 @@ export default function CreateRide() {
             </Button>
             <Modal
                 show={showModal}
-                onHide={handleClick}
+                onHide={handleHide}
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
             >
-                <Modal.Header onClick={handleClick} closeButton>
+                <Modal.Header onClick={handleHide} closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
                     Ride Form
                 </Modal.Title>
@@ -73,7 +77,7 @@ export default function CreateRide() {
                             </Col>
                             
                             <Col>
-                                <Button variant="primary" id="destination" onClick={handleChange}>&#10003;</Button>
+                                <Button style={{background: "#E84F11"}} id="destination" onClick={handleChange}>&#10003;</Button>
                             </Col>
                             
                         </Form.Row>
@@ -85,7 +89,7 @@ export default function CreateRide() {
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={handleClick}>Submit</Button>
+                    <Button style={{background: "#E84F11"}} onClick={handleClick}>Submit</Button>
                 </Modal.Footer>
             </Modal>
         </>
