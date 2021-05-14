@@ -1,0 +1,45 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+	    
+	    "semi" : ["warn", "always"],
+	    "quotes" : ["warn", "double"],
+	    "no-unused-vars" : "warn",
+	    "no-dupe-keys" : "warn",
+	    "react/prop-types" : "warn",
+	    "react/no-deprecated" : "warn",
+	    "no-undef" : "warn",
+	    "no-empty" : "warn",
+	    "react/react-in-jsx-scope" : "warn",
+	    "no-prototype-builtins" : "warn",
+	    "no-fallthrough" : "warn",
+	    "no-func-assign" : "warn",
+	    "no-cond-assign" : "warn",
+	    "no-useless-escape" : "warn",
+	    "no-self-assign" : "warn",
+	    "no-control-regex" : "warn",
+	    "getter-return" : "warn",
+	    "valid-typeof" : "warn",
+	    "react/no-find-dom-node" : "warn",
+	    "no-misleading-character-class" : "warn",
+	    "no-unsafe-finally" : "warn",
+	    "no-sparse-arrays" : "warn"
+     }
+}
