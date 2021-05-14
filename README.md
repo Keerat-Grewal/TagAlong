@@ -3,6 +3,8 @@ Keerat Grewal
 Brandon Burana
 Ishaan Karvir
 
+Style Guide : https://eslint.org/
+
 ![image](https://user-images.githubusercontent.com/39412343/117198474-ec3fb180-ad9d-11eb-8b88-4a00f233c042.png)
 
 # Getting Started with Create React App
