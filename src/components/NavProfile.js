@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import { DropdownButton, Dropdown } from 'react-bootstrap';
+import {Navbar, Nav, Form, FormControl, Button, NavDropdown, Image, NavItem} from 'react-bootstrap'
 import  { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
-
+import Avatar from '../profile_avatar2.jpg';
 import {firestore} from './Firebase';
 
 export default function NavProfile() {
@@ -40,11 +40,26 @@ export default function NavProfile() {
 
    return (
       <div>
-         <DropdownButton id="dropdown-basic-button" title="Profile">
+         {/* <Dropdown>
+      <Dropdown.Toggle variant = "danger" id="dropdown-basic">
+         Profile
+      </Dropdown.Toggle>
+         <Dropdown.Menu>
          <Dropdown.Item  href="/profile" >Profile</Dropdown.Item>
          <Dropdown.Item href="/">Home</Dropdown.Item>
          <Dropdown.Item onClick = {handleLogOut}>Logout</Dropdown.Item>
-         </DropdownButton>
+         </Dropdown.Menu>
+         </Dropdown> */}
+
+      <NavDropdown alignRight title={<Image id="avatar" src={Avatar} roundedCircle />}>
+         {/* <NavDropdown.Item id="profile-name">{name}</NavDropdown.Item>
+         <NavDropdown.Divider/>
+         <NavDropdown.Item active id="logout" onClick={this.props.logout}>Logout</NavDropdown.Item> */}
+      
+         <NavDropdown.Item  href="/profile" >Profile</NavDropdown.Item>
+         <NavDropdown.Item href="/">Home</NavDropdown.Item>
+         <NavDropdown.Item onClick = {handleLogOut}>Logout</NavDropdown.Item>
+      </NavDropdown> 
       </div>
    )
 }
