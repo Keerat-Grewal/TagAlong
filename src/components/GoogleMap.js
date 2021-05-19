@@ -134,7 +134,16 @@ function MapContainer() {
         // setup initial markers here from firebase
         // const timestamp = firebase.firestore.FieldValue.serverTimestamp();
         // const timestamp = "2";
-        firestore.collection("rides").where("firstname", "==", "Brandon")
+        const months = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"];
+        const currDate = new Date();
+        const month = months[currDate.getMonth()];
+        const day = currDate.getDay();
+        const year = currDate.getFullYear();
+        const date = month + " " + day + ", " + year;
+        const timestamp = firebase.firestore.Timestamp.fromDate(new Date(date));
+        
+        firestore.collection("rides").where("departure", ">", timestamp)
             .onSnapshot((querySnapshot) => {
                 var newMarkers = [];
                 querySnapshot.forEach((doc) => {
