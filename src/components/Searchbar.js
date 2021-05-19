@@ -45,7 +45,7 @@ export default class SearchBar extends React.Component {
             />
             <div className="autocomplete-dropdown-container">
               {loading && <div>Loading...</div>}
-              {suggestions.map(suggestion => {
+              {suggestions.map(suggestion, index => {
                 const className = suggestion.active
                   ? 'suggestion-item--active'
                   : 'suggestion-item';
@@ -54,11 +54,12 @@ export default class SearchBar extends React.Component {
                   ? { backgroundColor: '#fafafa', cursor: 'pointer' }
                   : { backgroundColor: '#ffffff', cursor: 'pointer' };
                 return (
-                  <div
-                    {...getSuggestionItemProps(suggestion, {
+                  <div 
+                  {...getSuggestionItemProps(suggestion, {
                       className,
                       style,
                     })}
+                    key = {index}
                   >
                     <span>{suggestion.description}</span>
                   </div>

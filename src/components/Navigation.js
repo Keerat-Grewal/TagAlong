@@ -11,6 +11,7 @@ import '../styles/navigation.css';
 import CreateRide from './Ride'
 import Searchbar from './Searchbar';
 import FindRide from './FindRide';
+import NavProfile from './NavProfile'
 
 class Navigation extends Component{
     constructor(props){
@@ -38,7 +39,8 @@ class Navigation extends Component{
               <FindRide></FindRide>
               {/* <Searchbar style= {{margin: "auto"}}></Searchbar> */}
             </Navbar.Collapse>
-            <Logout></Logout>
+            {/* <Logout></Logout> */}
+            <NavProfile/>
           </Navbar>
 
         )
