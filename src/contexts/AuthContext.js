@@ -16,8 +16,9 @@ export function AuthProvider({children}){
       return auth.createUserWithEmailAndPassword(email, password).then(registeredUser => {
          firestore.collection("users").doc(registeredUser.user.uid)
          .set({
-           uid: registeredUser.user.uid,
-           username: userName
+            uid: registeredUser.user.uid,
+            username: userName,
+            bio : ""
          })
        })
    }
