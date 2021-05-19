@@ -5,10 +5,14 @@ import {firestore} from './Firebase';
 import {auth} from './Firebase';
 import { useAuth } from '../contexts/AuthContext'
 import '../styles/ride.css'
+import firebase from 'firebase/app'
+import useGeoLocation from './Location';
 
 export default function CreateRide() {
     const {signup, currentUser} = useAuth();
     const [showModal, setModal] = useState(false);
+    const location = useGeoLocation();
+    
     const [formValue, setFormValue] = useState({
                 destination: "",
                 departure: "",
@@ -16,14 +20,25 @@ export default function CreateRide() {
                 lastname: "",
                 username: ""
             });
+
     const destRef = useRef(null); 
     const ridesRef = firestore.collection('rides');
-    console.log(destRef.current);
+
     const handleClick = () => {
         setModal(false);
-        // do firebase stuff ok
+        // do firebase stuff
+        const timestamp = firebase.firestore.Timestamp.fromDate(new Date(formValue.departure));
+        const real_lat = location.coordinates.lat - 0.01;
+        const real_lng = location.coordinates.lng - 0.01;
+
         ridesRef.doc(currentUser.uid).set({
-            formValue
+            destination: formValue.destination,
+            departure: timestamp,
+            firstname: formValue.firstname,
+            lastname: formValue.lastname,
+            username: formValue.username,
+            lat: real_lat,
+            lng: real_lng
         })
         console.log("CLICKED MODAL")
     }

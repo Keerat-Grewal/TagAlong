@@ -10,6 +10,7 @@ import Logo from '../Logo2.png';
 import '../styles/navigation.css';
 import CreateRide from './Ride'
 import Searchbar from './Searchbar';
+import FindRide from './FindRide';
 
 class Navigation extends Component{
     constructor(props){
@@ -21,8 +22,8 @@ class Navigation extends Component{
             <Navbar bg="light" expand="lg">
             {/* <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand> */}
             <Navbar.Brand>
-                    <Image id="logo" src={Logo} />
-                </Navbar.Brand>
+                <Image id="logo" src={Logo} />
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               {/* <Nav className="mr-auto">
@@ -34,6 +35,7 @@ class Navigation extends Component{
                 <Button variant="outline-success">Search</Button>
               </Form> */}
               <CreateRide></CreateRide>
+              <FindRide></FindRide>
               {/* <Searchbar style= {{margin: "auto"}}></Searchbar> */}
             </Navbar.Collapse>
             <Logout></Logout>
