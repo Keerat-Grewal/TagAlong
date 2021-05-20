@@ -12,7 +12,7 @@ import CreateRide from './Ride'
 import Searchbar from './Searchbar';
 import FindRide from './FindRide';
 import NavProfile from './NavProfile'
-import Reset from '../reset_button.jpeg';
+import Reset from '../reset_button3.png';
 import {Link} from 'react-router-dom'
 
 

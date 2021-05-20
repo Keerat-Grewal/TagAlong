@@ -12,7 +12,7 @@ import firebase from 'firebase/app'
 function MapContainer(props) {
     const location = useGeoLocation();
     const style = {
-        width: '70%',
+        width: '74%',
         height: '90%'
     }
     

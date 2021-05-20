@@ -46,7 +46,7 @@ export default function Login(){
             <Image style={{marginLeft: "auto", width:"100%"}} src={Logo}/>
             <Card style={{background: "#F2F2F2"}}>
                <Card.Body>
-                  <h2 className = "text-center mb-4">Log In</h2>
+                  <h2 className = "text-center mb-4" style={{fontFamily: "Verdana"}}>Login</h2>
                   {error && <Alert variant = "danger"> {error} </Alert>}
                   <Form onSubmit={handleSubmit}>
                      <Form.Group id="email">
