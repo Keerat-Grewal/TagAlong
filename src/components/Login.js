@@ -3,7 +3,7 @@ import React, {useRef, useState} from 'react'
 import {Alert, Card, Button, Form, FormControl, Container, Image} from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext'
 import  { Link, useHistory } from 'react-router-dom'
-import Logo from '../Logo2.png';
+import Logo from '../logo_3.png';
 import Background from '../background_3.jpeg'
 
 export default function Login(){
@@ -44,7 +44,7 @@ export default function Login(){
 
         <div className="w-100" style = {{maxWidth : "400px"}}>
             <Image style={{marginLeft: "auto", width:"100%"}} src={Logo}/>
-            <Card>
+            <Card style={{background: "#F2F2F2"}}>
                <Card.Body>
                   <h2 className = "text-center mb-4">Log In</h2>
                   {error && <Alert variant = "danger"> {error} </Alert>}
