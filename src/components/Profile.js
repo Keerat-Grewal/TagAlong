@@ -71,7 +71,7 @@ export default function Profile() {
 
    return (
       <div>
-         <Navigation canCreate = {false} canSearch = {false}/>
+         <Navigation update={() => {}} canCreate = {false} canSearch = {false}/>
 
          <h5 className="mb-0">Your Bio</h5>
          <div className="p-4 rounded shadow-sm bg-light">

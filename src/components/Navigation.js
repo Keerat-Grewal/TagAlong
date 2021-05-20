@@ -64,7 +64,8 @@ export default function Navigation(props) {
     }
 
     useEffect(() => {
-        props.update(filter)
+        if(props.filter !== null)
+            props.update(filter)
     }, [filter]);
 
     return(
@@ -83,8 +84,8 @@ export default function Navigation(props) {
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
             <Button variant="outline-success">Search</Button>
           </Form> */}
-          <CreateRide></CreateRide>
-          <FindRide update={setFilter}></FindRide>
+          {props.canCreate && <CreateRide></CreateRide>} 
+          {props.canSearch && <FindRide update={setFilter}></FindRide>}
           <Image id="reset" src={Reset} onClick={handleClick}></Image>
     
           {/* <Searchbar style= {{margin: "auto"}}></Searchbar> */}
