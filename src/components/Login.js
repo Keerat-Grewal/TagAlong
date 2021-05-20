@@ -4,7 +4,7 @@ import {Alert, Card, Button, Form, FormControl, Container, Image} from 'react-bo
 import { useAuth } from '../contexts/AuthContext'
 import  { Link, useHistory } from 'react-router-dom'
 import Logo from '../Logo2.png';
-
+import Background from '../background_3.jpeg'
 
 export default function Login(){
    const emailRef = useRef();
@@ -33,30 +33,37 @@ export default function Login(){
 
    return (
 
-      <Container className = "d-flex align-items-center justify-content-center"
-      style={{minHeight : "100vh"}}>
+      <Container fluid className = "d-flex align-items-center justify-content-center"
+      style={{         
+         backgroundPosition: 'center',
+         backgroundSize: 'cover',
+         backgroundRepeat: 'no-repeat',
+         width: '100vw',
+         height: '100vh',
+         backgroundImage: `url(${Background})`}}>
+
         <div className="w-100" style = {{maxWidth : "400px"}}>
-         <Image style={{marginLeft: "auto", width:"100%"}} src={Logo}/>
-         <Card>
-            <Card.Body>
-               <h2 className = "text-center mb-4">Log In</h2>
-               {error && <Alert variant = "danger"> {error} </Alert>}
-               <Form onSubmit={handleSubmit}>
-                  <Form.Group id="email">
-                  </Form.Group>
-                     <Form.Label>Email</Form.Label>
-                     <Form.Control type = "email" ref={emailRef} required></Form.Control>
-                  <Form.Group id="Password">
-                     <Form.Label>Password</Form.Label>
-                     <Form.Control type = "password" ref={passwordRef} required></Form.Control>
-                  </Form.Group>
-                  <Button style={{background: "#E84F11", border: "#E84F11"}} disabled = {loading} className = "w-100" type="submit">Log In</Button>
-               </Form>
-            </Card.Body>
-         </Card>
-         <div className = "w-100 test-center mt-2">
-            Need an account? <Link to = "/signup" style={{color: "#E84F11"}} > Sign Up</Link>
-         </div>
+            <Image style={{marginLeft: "auto", width:"100%"}} src={Logo}/>
+            <Card>
+               <Card.Body>
+                  <h2 className = "text-center mb-4">Log In</h2>
+                  {error && <Alert variant = "danger"> {error} </Alert>}
+                  <Form onSubmit={handleSubmit}>
+                     <Form.Group id="email">
+                     </Form.Group>
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type = "email" ref={emailRef} required></Form.Control>
+                     <Form.Group id="Password">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type = "password" ref={passwordRef} required></Form.Control>
+                     </Form.Group>
+                     <Button style={{background: "#E84F11", border: "#E84F11"}} disabled = {loading} className = "w-100" type="submit">Log In</Button>
+                  </Form>
+                  <div className = "w-100 test-center mt-2">
+                     Need an account? <Link to = "/signup" style={{color: "#E84F11"}} > Sign Up</Link>
+                  </div>
+               </Card.Body>
+            </Card>
          </div>
       
       </Container>
