@@ -13,6 +13,7 @@ import Searchbar from './Searchbar';
 import FindRide from './FindRide';
 import NavProfile from './NavProfile'
 import Reset from '../reset_button.jpeg';
+import {Link} from 'react-router-dom'
 
 
 // class Navigation extends Component{
@@ -72,7 +73,9 @@ export default function Navigation(props) {
         <Navbar bg="light" expand="lg">
         {/* <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand> */}
         <Navbar.Brand>
+           <Link to = "/">
             <Image id="logo" src={Logo} />
+            </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
