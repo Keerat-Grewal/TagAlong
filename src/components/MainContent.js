@@ -6,10 +6,10 @@ import MapContainer from './GoogleMap'
 
 export default function MainContent() {
     const [filter, setFilter] = useState('');
+    
     return (
         <div className="App">
-        
-        <Navigation update={setFilter} canCreate = {true} canSearch = {true}></Navigation>
+        <Navigation update={setFilter} display = {true}></Navigation>
         {/* <GoogleMap></GoogleMap> */}
         <MapContainer filter={filter}></MapContainer>
         {/* <CreateRide></CreateRide> */}
@@ -17,6 +17,7 @@ export default function MainContent() {
     </div>
    )
 }
+
 
 
 

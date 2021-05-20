@@ -84,9 +84,9 @@ export default function Navigation(props) {
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
             <Button variant="outline-success">Search</Button>
           </Form> */}
-          {props.canCreate && <CreateRide></CreateRide>} 
-          {props.canSearch && <FindRide update={setFilter}></FindRide>}
-          <Image id="reset" src={Reset} onClick={handleClick}></Image>
+          {props.display && <CreateRide></CreateRide>} 
+          {props.display && <FindRide update={setFilter}></FindRide>}
+          {props.display && <Image id="reset" src={Reset} onClick={handleClick}></Image>}
     
           {/* <Searchbar style= {{margin: "auto"}}></Searchbar> */}
         </Navbar.Collapse>
