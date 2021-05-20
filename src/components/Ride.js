@@ -87,12 +87,12 @@ export default function CreateRide() {
                         <Form.Label id="sign-up-text">Information</Form.Label>
                         {/* <Form.Control id="destination" type="email" placeholder="Destination" onChange={handleChange} /> */}
                         <Form.Row>
-                            <Col>
+                            <Col xs={11}>
                                 <Searchbar ref={destRef}></Searchbar>
                             </Col>
                             
-                            <Col>
-                                <Button style={{background: "#E84F11"}} id="destination" onClick={handleChange}>&#10003;</Button>
+                            <Col xs={1}>
+                                <Button style={{background: "#E84F11", border: "#E84F11"}} id="destination" onClick={handleChange}>&#10003;</Button>
                             </Col>
                             
                         </Form.Row>
@@ -104,7 +104,7 @@ export default function CreateRide() {
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button style={{background: "#E84F11"}} onClick={handleClick}>Submit</Button>
+                    <Button style={{background: "#E84F11", border: "#E84F11"}} onClick={handleClick}>Submit</Button>
                 </Modal.Footer>
             </Modal>
         </>
