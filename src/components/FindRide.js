@@ -7,13 +7,12 @@ import {auth} from './Firebase';
 import { useAuth } from '../contexts/AuthContext'
 
 
-export default function FindRide() {
+export default function FindRide(props) {
     const {signup, currentUser} = useAuth();
     const [showModal, setModal] = useState(false);
-    const [formValue, setFormValue] = useState({
-                destination: "",
-            });
-    const destRef = useRef(null); 
+    const [formValue, setFormValue] = useState({destination: ""});
+
+    const searchRef = useRef(null); 
 
     const handleClick = () => {
         setModal(false);
@@ -29,19 +28,15 @@ export default function FindRide() {
 
     const handleChange = (e) => {
         if(e.target.id === "destination") {
-            const currentState = destRef.current;
+            const currentState = searchRef.current;
             // console.log("INSIDE destination")
             // console.log(currentState)
             setFormValue({ 
                 ...formValue, 
                 [e.target.id]: currentState.state.name
             });
-        }
-        else{
-            setFormValue({ 
-                ...formValue, 
-                [e.target.id]: e.target.value
-            });
+            props.update(currentState.state.name)
+            
         }
     }
 
@@ -59,7 +54,7 @@ export default function FindRide() {
             >
                 <Modal.Header onClick={handleHide} closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Find Ride
+                        Find Ride <i className="fa fa-search"></i>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -68,7 +63,7 @@ export default function FindRide() {
                         {/* <Form.Control id="destination" type="email" placeholder="Destination" onChange={handleChange} /> */}
                         <Form.Row>
                             <Col>
-                                <Searchbar ref={destRef}></Searchbar>
+                                <Searchbar ref={searchRef}></Searchbar>
                             </Col>
                             
                             <Col>
