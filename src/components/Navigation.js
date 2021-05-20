@@ -35,8 +35,8 @@ class Navigation extends Component{
                 <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                 <Button variant="outline-success">Search</Button>
               </Form> */}
-              <CreateRide></CreateRide>
-              <FindRide></FindRide>
+              {this.props.canCreate && <CreateRide></CreateRide>}
+              {this.props.canSearch && <FindRide/>}
               {/* <Searchbar style= {{margin: "auto"}}></Searchbar> */}
             </Navbar.Collapse>
             {/* <Logout></Logout> */}

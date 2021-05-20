@@ -19,6 +19,8 @@ export default function Chat(props) {
 
     const messagesRef = firestore.collection('messages');
     const usersRef = firestore.collection('users').doc(currentUser.uid);
+    const formRef = useRef()
+
 
     console.log("START");
 
@@ -128,7 +130,8 @@ export default function Chat(props) {
             message: firebase.firestore.FieldValue.arrayUnion({id: currentUser.uid, message: formValue2, timestamp: new Date()})
         });
         // setFormValue2('');
-    }
+        formRef.current.reset()
+      }
 
     const handleChange = (event) => {
         //console.log(event.target.name);
@@ -206,7 +209,7 @@ export default function Chat(props) {
                 </div>
             </flexContainer>
             <div id="sendBox">
-                <Form  onSubmit={handleSubmit2} onChange={handleChange}>
+                <Form  ref = {formRef} onSubmit={handleSubmit2} onChange={handleChange}>
                     <Form.Row id ="form">
                         <Col >
                             <Form.Control 
