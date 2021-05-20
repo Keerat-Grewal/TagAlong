@@ -10,7 +10,7 @@ export default function MainContent() {
    return (
     <div className="App">
       
-      <Navigation></Navigation>
+      <Navigation canCreate = {true} canSearch = {true}></Navigation>
       {/* <GoogleMap></GoogleMap> */}
       <MapContainer></MapContainer>
       {/* <CreateRide></CreateRide> */}
