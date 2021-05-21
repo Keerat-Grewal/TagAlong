@@ -108,7 +108,7 @@ export default function Profile() {
          <Navigation update={() => {}} display={false}/>
             
          <Container fluid style={{width : "100vw"}}>
-            <Row className="justify-content-md-center">
+            <Row className="justify-content-md-center text-center">
                <Col className="justify-content-md-center">
                   <Card>
                      <Card.Body>
