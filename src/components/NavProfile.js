@@ -56,8 +56,10 @@ export default function NavProfile() {
          <NavDropdown.Divider/>
          <NavDropdown.Item active id="logout" onClick={this.props.logout}>Logout</NavDropdown.Item> */}
       
-         <NavDropdown.Item  href="/profile" >Profile</NavDropdown.Item>
-         <NavDropdown.Item href="/">Home</NavDropdown.Item>
+        
+         <NavDropdown.Item href = "Profile">Profile</NavDropdown.Item>
+         <NavDropdown.Item href = "/">Home</NavDropdown.Item>
+        
          <NavDropdown.Item onClick = {handleLogOut}>Logout</NavDropdown.Item>
       </NavDropdown> 
       </div>
