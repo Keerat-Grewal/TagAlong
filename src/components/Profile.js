@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/AuthContext'
 import {firestore, storage} from './Firebase';
 import { Button, Container, Form, Image, Row, Card, Modal, Col } from 'react-bootstrap';
 import Avatar from '../profile_avatar2.jpg';
+import { set } from 'ol/transform';
 
 
 export default function Profile() {
@@ -21,6 +22,10 @@ export default function Profile() {
    const [show, setShow] = useState()
    const [userName, setUserName] = useState()
 
+   const [profilePicture, setProfilePicture] = useState()
+   const [profilePictureFlag, setProfilePictureFlag] = useState(false)
+
+   const [profilePictureUrl, setProfilePictureUrl] = useState()
    function changeBio(){
       const usersRef = firestore.collection('users').doc(currentUser.uid);
       usersRef.get().then((doc) => {
@@ -65,6 +70,10 @@ export default function Profile() {
          setName(doc.data().name)
          console.log("HERE", doc.data().username)
          setUserName(doc.data().username)
+         var a = storage.ref('pictures').child(doc.data().ProfilePicture)
+         var b = a.getDownloadURL().then((temp) => {setProfilePicture(temp)})
+         setProfilePictureFlag(true)
+         setProfilePicture(b)
       } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
@@ -72,7 +81,9 @@ export default function Profile() {
    }).catch((error) => {
       console.log("Error getting document:", error);
 
-   });}, [])
+   });
+
+   }, [])
 
    useEffect(() => {
       console.log("bio is ", bio)
@@ -102,6 +113,45 @@ export default function Profile() {
 
    }
 
+   const onImageChange = (e) => {
+      if (e.target.files && e.target.files[0]) {
+         let img = e.target.files[0];
+         setProfilePicture(URL.createObjectURL(img))
+         setProfilePictureFlag(true)
+         setProfilePictureUrl(img)
+      }
+   }
+
+   const uploadPicture = () => {
+      const uploadTask = storage.ref(`pictures/${profilePictureUrl.name}`).put(profilePictureUrl);
+      console.log("uploading this" + profilePictureUrl)
+      uploadTask.on(
+         "state_changed ",
+         snap_shot => {},
+         error => {console.log(error)
+         },
+
+         () => {
+            storage.ref("pictures").child(profilePictureUrl.name).getDownloadURL().then(url => console.log(url))
+         }
+
+      )
+      const usersRef = firestore.collection('users').doc(currentUser.uid);
+      usersRef.get().then((doc) => {
+         if (doc.exists && bio !== "") {
+            usersRef.set({
+               ProfilePicture : profilePictureUrl.name
+            }, { merge: true })
+            // setBio("This is bio lmao")
+         } else {
+               // doc.data() will be undefined in this case
+               console.log("No such document!");
+         }
+      }).catch((error) => {
+         console.log("Error getting document:", error);
+
+      });
+   }
 
    return (
       <div>
@@ -113,7 +163,8 @@ export default function Profile() {
                   <Card>
                      <Card.Body>
                         <Container fluid >
-                           <Image id="avatar" src={Avatar}></Image>
+                           {profilePictureFlag && <Image fluid roundedCircle src={profilePicture}></Image>}
+                           {!profilePictureFlag && <Image id="avatar" src={Avatar}></Image>}
                         </Container>
                            <h2  style={{fontFamily: "Verdana"}}>{userName}</h2>
                            
@@ -149,6 +200,10 @@ export default function Profile() {
             </Modal.Footer>
          </Modal>
 
+
+         <input type = "file" name = "profilePicture" onChange={onImageChange}></input>
+         <Button onClick = {uploadPicture}>Submit Picture</Button>
+         {/* <Image src = {profilePicture}></Image> */}
 
       </div>
    )
