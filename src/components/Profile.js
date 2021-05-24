@@ -15,19 +15,20 @@ export default function Profile() {
    const bioRef = useRef()
    const [bio, setBio] = useState("")
 
-   const formRef2 = useRef()
-   const nameRef = useRef()
+   const inputRef = useRef()
    const [name, setName] = useState()
+   const [showSubmit, setShowSubmit] = useState(false)
 
    const [show, setShow] = useState()
    const [userName, setUserName] = useState()
 
-   const [profilePicture, setProfilePicture] = useState()
+   const [profilePicture, setProfilePicture] = useState(undefined)
    const [profilePictureFlag, setProfilePictureFlag] = useState(false)
 
    const [profilePictureUrl, setProfilePictureUrl] = useState()
+   
+   const usersRef = firestore.collection('users').doc(currentUser.uid);
    function changeBio(){
-      const usersRef = firestore.collection('users').doc(currentUser.uid);
       usersRef.get().then((doc) => {
          if (doc.exists && bio !== "") {
             usersRef.set({
@@ -45,7 +46,6 @@ export default function Profile() {
    }
 
    function changeName(){
-      const usersRef = firestore.collection('users').doc(currentUser.uid);
       usersRef.get().then((doc) => {
          if (doc.exists && bio !== "") {
             usersRef.set({
@@ -63,24 +63,24 @@ export default function Profile() {
    }
 
 
-   useEffect(() => {  const usersRef = firestore.collection('users').doc(currentUser.uid);
-   usersRef.get().then((doc) => {
-      if (doc.exists) {
-         setBio(doc.data().bio)
-         setName(doc.data().name)
-         console.log("HERE", doc.data().username)
-         setUserName(doc.data().username)
-         var a = storage.ref('pictures').child(doc.data().ProfilePicture)
-         var b = a.getDownloadURL().then((temp) => {setProfilePicture(temp)})
-         setProfilePictureFlag(true)
-         setProfilePicture(b)
-      } else {
+   useEffect(() => {
+      usersRef.get().then((doc) => {
+         if (doc.exists) {
+            setBio(doc.data().bio)
+            setName(doc.data().name)
+            console.log("HERE", doc.data().username)
+            setUserName(doc.data().username)
+            var a = storage.ref('pictures').child(doc.data().ProfilePicture)
+            var b = a.getDownloadURL().then((temp) => {setProfilePicture(temp)})
+            setProfilePictureFlag(true)
+            setProfilePicture(b)
+         } 
+         else {
             // doc.data() will be undefined in this case
-            console.log("No such document!");
-      }
-   }).catch((error) => {
-      console.log("Error getting document:", error);
-
+                 console.log("No such document!");
+         }
+      }).catch((error) => {
+         console.log("Error getting document:", error);
    });
 
    }, [])
@@ -96,7 +96,11 @@ export default function Profile() {
 
 
 
-   const handleClose = () => (setShow(false))
+   const handleClose = () => {
+      setShow(false); 
+      setShowSubmit(false)
+   }
+   
    const handleShow = () => (setShow(true))
 
    function handleSubmit(e){
@@ -119,6 +123,7 @@ export default function Profile() {
          setProfilePicture(URL.createObjectURL(img))
          setProfilePictureFlag(true)
          setProfilePictureUrl(img)
+         setShowSubmit(true)
       }
    }
 
@@ -136,7 +141,6 @@ export default function Profile() {
          }
 
       )
-      const usersRef = firestore.collection('users').doc(currentUser.uid);
       usersRef.get().then((doc) => {
          if (doc.exists && bio !== "") {
             usersRef.set({
@@ -151,6 +155,7 @@ export default function Profile() {
          console.log("Error getting document:", error);
 
       });
+      setShowSubmit(false)
    }
 
    return (
@@ -170,7 +175,7 @@ export default function Profile() {
                            
                            <h2 style={{fontFamily: "Verdana"}}>{bio}</h2>
                         
-                           <Button onClick={handleShow}>Edit shits</Button>
+                           <Button onClick={handleShow}>Edit </Button>
                      </Card.Body>
                   </Card>
                </Col>
@@ -183,6 +188,15 @@ export default function Profile() {
                <Modal.Title>Modal heading</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+            
+            
+               <Container className="justify-content-md-center text-center">
+                  <div>
+                  {profilePictureFlag && <Image onClick = {() => inputRef.current.click()} style={{   height: "80px", width: "80px"}} fluid roundedCircle src={profilePicture}></Image>}
+                  {!profilePictureFlag && <Image id="avatar" src={Avatar}></Image>}
+                  </div>
+                  {showSubmit && <Button onClick = {uploadPicture}> Submit Picture</Button>}
+               </Container>
                <Form  onSubmit= {handleSubmit} ref = {formRef1}>
                   <Form.Group id="email">
                      <Form.Label>Add Bio</Form.Label>
@@ -201,8 +215,8 @@ export default function Profile() {
          </Modal>
 
 
-         <input type = "file" name = "profilePicture" onChange={onImageChange}></input>
-         <Button onClick = {uploadPicture}>Submit Picture</Button>
+         <input style = {{display : "none"}} ref = {inputRef} type = "file" name = "profilePicture" onChange={onImageChange}></input>
+
          {/* <Image src = {profilePicture}></Image> */}
 
       </div>
