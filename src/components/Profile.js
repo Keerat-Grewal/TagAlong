@@ -193,7 +193,7 @@ export default function Profile() {
                <Container className="justify-content-md-center text-center">
                   <div>
                   {profilePictureFlag && <Image onClick = {() => inputRef.current.click()} style={{   height: "80px", width: "80px"}} fluid roundedCircle src={profilePicture}></Image>}
-                  {!profilePictureFlag && <Image id="avatar" src={Avatar}></Image>}
+                  {!profilePictureFlag && <Image onClick = {() => inputRef.current.click()} id="avatar" src={Avatar}></Image>}
                   </div>
                   {showSubmit && <Button onClick = {uploadPicture}> Submit Picture</Button>}
                </Container>
