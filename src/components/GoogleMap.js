@@ -69,7 +69,14 @@ function MapContainer(props) {
                 .onSnapshot((querySnapshot) => {
                     var newMarkers = [];
                     querySnapshot.forEach((doc) => {
-                        newMarkers.push({coordinates: { lat: doc.data().lat, lng: doc.data().lng }, desc: doc.data().description});
+                        newMarkers.push({
+                            coordinates: { lat: doc.data().lat, lng: doc.data().lng }, 
+                            desc: doc.data().description,
+                            dest: doc.data().destination,
+                            first: doc.data().firstname,
+                            last: doc.data().lastname,
+                            username: doc.data().username
+                            });
                     });
                     setMarkers(newMarkers);
                 });
@@ -80,7 +87,14 @@ function MapContainer(props) {
                 .onSnapshot((querySnapshot) => {
                     var newMarkers = [];
                     querySnapshot.forEach((doc) => {
-                        newMarkers.push({coordinates: { lat: doc.data().lat, lng: doc.data().lng }, desc: doc.data().description});
+                        newMarkers.push({
+                            coordinates: { lat: doc.data().lat, lng: doc.data().lng }, 
+                            desc: doc.data().description,
+                            dest: doc.data().destination,
+                            first: doc.data().firstname,
+                            last: doc.data().lastname,
+                            username: doc.data().username
+                            });
                     });
                     setMarkers(newMarkers);
                 });
@@ -121,7 +135,10 @@ function MapContainer(props) {
                                 position={m.coordinates}
                                 onClick={onMarkerClick}
                                 title={''}
-                                name={m.desc}/>
+                                name={<p>Name: {m.first} {m.last} <br/>
+                                        Contact Info: {m.username} <br/>
+                                        Destination: {m.dest} <br/><br/>
+                                        {m.desc}</p>}/>
                                 )}
                 </Map>
 

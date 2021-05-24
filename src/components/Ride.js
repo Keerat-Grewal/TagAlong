@@ -18,7 +18,8 @@ export default function CreateRide() {
                 departure: "",
                 firstname: "",
                 lastname: "",
-                username: ""
+                username: "",
+                description: ""
             });
 
     const destRef = useRef(null); 
@@ -37,6 +38,7 @@ export default function CreateRide() {
             firstname: formValue.firstname,
             lastname: formValue.lastname,
             username: formValue.username,
+            description: formValue.description,
             lat: real_lat,
             lng: real_lng
         })
@@ -101,6 +103,7 @@ export default function CreateRide() {
                         <Form.Control id="firstname" type="text" placeholder="First Name" onChange={handleChange}/>
                         <Form.Control id="lastname" type="text" placeholder="Last Name" onChange={handleChange}/>
                         <Form.Control id="username" type="text" placeholder="Username" onChange={handleChange}/>
+                        <Form.Control id="description" type="text" placeholder="Add details for trip" onChange={handleChange}/>
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
