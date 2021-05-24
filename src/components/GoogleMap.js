@@ -53,32 +53,38 @@ function MapContainer(props) {
         const months = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"];
         const currDate = new Date();
+        console.log(currDate)
         const month = months[currDate.getMonth()];
-        const day = currDate.getDay();
+        console.log(month)
+        const day = currDate.getDate();
+        console.log(day)
         const year = currDate.getFullYear();
+        console.log(year)
         const date = month + " " + day + ", " + year;
         const timestamp = firebase.firestore.Timestamp.fromDate(new Date(date));
         console.log("INSIDE useEffect google");
         console.log(props.filter)
         if(props.filter === '') {
-            firestore.collection("rides").where("departure", ">", timestamp)
+            const unsubscribe = firestore.collection("rides").where("departure", ">", timestamp)
                 .onSnapshot((querySnapshot) => {
                     var newMarkers = [];
                     querySnapshot.forEach((doc) => {
-                        newMarkers.push({coordinates: { lat: doc.data().lat, lng: doc.data().lng }});
+                        newMarkers.push({coordinates: { lat: doc.data().lat, lng: doc.data().lng }, desc: doc.data().description});
                     });
                     setMarkers(newMarkers);
                 });
+            return unsubscribe
         }
         else{
-            firestore.collection("rides").where("departure", ">", timestamp).where("destination", "==", props.filter)
-            .onSnapshot((querySnapshot) => {
-                var newMarkers = [];
-                querySnapshot.forEach((doc) => {
-                    newMarkers.push({coordinates: { lat: doc.data().lat, lng: doc.data().lng }});
+            const unsubscribe = firestore.collection("rides").where("departure", ">", timestamp).where("destination", "==", props.filter)
+                .onSnapshot((querySnapshot) => {
+                    var newMarkers = [];
+                    querySnapshot.forEach((doc) => {
+                        newMarkers.push({coordinates: { lat: doc.data().lat, lng: doc.data().lng }, desc: doc.data().description});
+                    });
+                    setMarkers(newMarkers);
                 });
-                setMarkers(newMarkers);
-            });
+            return unsubscribe
         }
 
     }, [props.filter]);
@@ -114,8 +120,8 @@ function MapContainer(props) {
                                 key={index} 
                                 position={m.coordinates}
                                 onClick={onMarkerClick}
-                                title={'nani'}
-                                name={'Brandon is offering ride to San Jose. Username: bburana'}/>
+                                title={''}
+                                name={m.desc}/>
                                 )}
                 </Map>
 
