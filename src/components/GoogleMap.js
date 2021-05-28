@@ -1,7 +1,6 @@
 import {React, Component} from 'react';
 import { useState, useEffect } from "react";
 import useGeoLocation from './Location';
-import {Button, Modal, Form} from 'react-bootstrap';
 import mapStyles from './mapStyles';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import {firestore} from './Firebase';
@@ -23,6 +22,7 @@ function MapContainer(props) {
     const [showModal, setModal] = useState(false);
     const ridesRef = firestore.collection('rides');
     const iconBase = "https://developers.google.com/maps/documentation/javascript/examples/full/images/";
+    const icon2 = "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
     //const [selectedPlace, setselectedPlace] = useState({});
     console.log("INSIDE GOOGLE MAP")
     const onMarkerClick = (props, marker, e) => {
@@ -36,15 +36,6 @@ function MapContainer(props) {
             setactiveMarker(null);
         }
     };
-
-    const onHideChange = (formValues) => {
-        // set modal to false so its not visible
-        // call firebase to submut new ride
-        ridesRef.doc(currentUser.uid).set({
-            formValues
-        })
-        setModal(false);
-    }
 
     useEffect(() => {
         // setup initial markers here from firebase
@@ -63,7 +54,7 @@ function MapContainer(props) {
         const date = month + " " + day + ", " + year;
         const timestamp = firebase.firestore.Timestamp.fromDate(new Date(date));
         console.log("INSIDE useEffect google");
-        console.log(props.filter)
+
         if(props.filter === '') {
             const unsubscribe = firestore.collection("rides").where("departure", ">", timestamp)
                 .onSnapshot((querySnapshot) => {
@@ -135,7 +126,7 @@ function MapContainer(props) {
                                 position={m.coordinates}
                                 onClick={onMarkerClick}
                                 title={''}
-                                name={<p>Name: {m.first} {m.last} <br/>
+                                name={<p style={{fontFamily: "Verdana"}}>Name: {m.first} {m.last} <br/>
                                         Contact Info: {m.username} <br/>
                                         Destination: {m.dest} <br/><br/>
                                         {m.desc}</p>}/>
