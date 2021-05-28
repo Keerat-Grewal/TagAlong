@@ -141,19 +141,20 @@ export default function Profile() {
       <div>
          <Navigation update={() => {}} display={false}/>
             
-         <Container fluid style={{width : "100vw"}}>
+         <Container fluid style={{width : "100vw", marginTop: "20px"}}>
             <Row className="justify-content-md-center">
                <Col className="justify-content-md-center">
-                  <Container fluid >
+                  <Container fluid>
                      <Row >
                         <Col xs={3} className="justify-content-md-center">
                            {profilePictureFlag && <Image style={{height: "350px", width: "350px"}} roundedCircle fluid src={profilePicture}></Image>}
                            {!profilePictureFlag && <Image id="avatar" src={Avatar}></Image>}
-                           <Button fluid style={{width : "200px", marginLeft:"65px", marginTop:"10px"}}onClick={handleShow}>Edit Profile</Button>
+                           <Button fluid style={{width : "200px", marginLeft:"65px", marginTop:"10px", background: "#E84F11", border: "#E84F11"}}onClick={handleShow}>Edit Profile</Button>
                         </Col>
                         <Col xs={9} className="justify-content-md-center">
-                           <h2 style={{fontFamily: "Verdana"}}>{firstName}</h2>
-                           <h2 style={{fontFamily: "Verdana"}}>{bio}</h2>
+                           <h2 style={{fontFamily: "Verdana"}}>{firstName + " " + lastName}</h2>
+                           <h2 style={{fontFamily: "Verdana", color: "#E84F11", fontSize: "18pt"}}>{"@" + userName}</h2>
+                           <h2 style={{fontFamily: "Verdana", marginTop: "40px", wordWrap: "break-word"}}>{bio}</h2>
                         </Col>
                      </Row>
                   </Container>
@@ -169,7 +170,7 @@ export default function Profile() {
             <Modal.Body>
                <Container className="justify-content-md-center text-center">
                   <div>
-                  {profilePictureFlag && <Image onClick = {() => inputRef.current.click()} style={{   height: "80px", width: "80px"}} fluid roundedCircle src={previewPic}></Image>}
+                  {profilePictureFlag && <Image onClick = {() => inputRef.current.click()} style={{height: "80px", width: "80px"}} fluid roundedCircle src={previewPic}></Image>}
                   {!profilePictureFlag && <Image onClick = {() => inputRef.current.click()} id="avatar" src={Avatar}></Image>}
                   </div>
                   {showSubmit && <Button onClick = {uploadPicture}> Submit Picture</Button>}
