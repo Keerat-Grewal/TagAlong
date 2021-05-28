@@ -36,18 +36,6 @@ export default function Chat(props) {
                 .onSnapshot({
                     includeMetadataChanges: true
                 }, (doc) => {
-                    //...
-                    var newMessages = [];
-                    var i = 0;
-                    // for (i = 0; i < doc.data().message.length; i++) {
-                    //     newMessages.push(doc.data().message[i].value);
-                    // }
-                    // for (var element in doc.data().message) {
-                    //     newMessages.push(element);
-                    // }
-                    // doc.data().message.array.forEach(element => {
-                    //     newMessages.push(element)
-                    // });
                     setMessages(doc.data().message);
                 });
                 setKey(key);
@@ -61,16 +49,6 @@ export default function Chat(props) {
                         .onSnapshot({
                             includeMetadataChanges: true
                         }, (doc) => {
-                            //...
-                            var newMessages = [];
-                            var i = 0;
-                            // for (i = 0; i < doc.data().message.length; i++) {
-                            //     newMessages.push(doc.data().message[i].value);
-                            // }
-                            // for (var element in doc.data().message) {
-                            //     newMessages.push(element);
-                            // }
-                            // setMessages(newMessages);
                             setMessages(doc.data().message);
                         });
                         setKey(key2);
@@ -85,16 +63,6 @@ export default function Chat(props) {
                         .onSnapshot({
                             includeMetadataChanges: true
                         }, (doc) => {
-                            //...
-                            var newMessages = [];
-                            var i = 0;
-                            // for (i = 0; i < doc.data().message.length; i++) {
-                            //     newMessages.push(doc.data().message[i].value);
-                            // }
-                            // for (var element in doc.data().message) {
-                            //     newMessages.push(element);
-                            // }
-                            // setMessages(newMessages);
                             setMessages(doc.data().message);
                         });
                         console.log("Created document!");
@@ -108,16 +76,6 @@ export default function Chat(props) {
         }).catch((error) => {
             console.log("Error getting document:", error);
         });
-
-        // firestore.collection("messages").where("username", "==", formValue)
-        // .onSnapshot((querySnapshot) => {
-        //     var newMessages = [];
-        //     querySnapshot.forEach((doc) => {
-        //         newMessages.push(doc.data().message);
-        //     });
-        //     setMessages(newMessages);
-        // });
-        
     }
 
     const handleSubmit2 = (e) => {
@@ -154,31 +112,6 @@ export default function Chat(props) {
         }).catch((error) => {
             console.log("Error getting document:", error);
         });
-        // const res = messagesRef.where("id", "==", "gOSPjHGns0b5LAV2NLYQHeUGmc72")
-        //     .get()
-        //     .then((querySnapshot) => {
-        //         var newMessages = [];
-        //         querySnapshot.forEach((doc) => {
-        //             // doc.data() is never undefined for query doc snapshots
-        //             newMessages.push(doc.data().message);
-        //         });
-        //         setMessages(n => newMessages);
-        //     })
-        //     .catch((error) => {
-        //         console.log("Error getting documents: ", error);
-        //     });
-    
-        // firestore.collection("messages").where("id", "==", currentUser.uid)
-        //     .onSnapshot((querySnapshot) => {
-        //         if (formValue != "") {
-        //             var newMessages = [];
-        //             querySnapshot.forEach((doc) => {
-        //                 newMessages.push(doc.data().message);
-        //             });
-        //             setMessages(newMessages);
-        //         }
-        
-        //     });
 
     }, [currentUser]);
 
