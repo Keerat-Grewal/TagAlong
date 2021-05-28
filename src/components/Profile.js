@@ -3,7 +3,7 @@ import Navigation from './Navigation'
 import { useAuth } from '../contexts/AuthContext'
 
 import {firestore, storage} from './Firebase';
-import { Button, Container, Form, Image, Row, Card, Modal, Col } from 'react-bootstrap';
+import { Button, Container, Form, Image, Row, Card, Modal, Col} from 'react-bootstrap';
 import Avatar from '../profile_avatar2.jpg';
 import { set } from 'ol/transform';
 
@@ -24,6 +24,7 @@ export default function Profile() {
 
    const [profilePicture, setProfilePicture] = useState(undefined)
    const [profilePictureFlag, setProfilePictureFlag] = useState(false)
+   const [previewPic, setPreviewPic] = useState(undefined)
 
    const [profilePictureUrl, setProfilePictureUrl] = useState()
    
@@ -70,14 +71,15 @@ export default function Profile() {
             setName(doc.data().name)
             console.log("HERE", doc.data().username)
             setUserName(doc.data().username)
-            var a = storage.ref('pictures').child(doc.data().ProfilePicture)
-            var b = a.getDownloadURL().then((temp) => {setProfilePicture(temp)})
+            storage.ref('pictures').child(doc.data().ProfilePicture).getDownloadURL().then((temp) => {setProfilePicture(temp);
+                                                         setPreviewPic(temp)})
             setProfilePictureFlag(true)
-            setProfilePicture(b)
+            // setProfilePicture(b)
+            // setPreviewPic(b)
          } 
          else {
             // doc.data() will be undefined in this case
-                 console.log("No such document!");
+               console.log("No such document!");
          }
       }).catch((error) => {
          console.log("Error getting document:", error);
@@ -99,6 +101,7 @@ export default function Profile() {
    const handleClose = () => {
       setShow(false); 
       setShowSubmit(false)
+      setPreviewPic(profilePicture)
    }
    
    const handleShow = () => (setShow(true))
@@ -120,14 +123,15 @@ export default function Profile() {
    const onImageChange = (e) => {
       if (e.target.files && e.target.files[0]) {
          let img = e.target.files[0];
-         setProfilePicture(URL.createObjectURL(img))
+         // setProfilePicture(URL.createObjectURL(img))
+         setPreviewPic(URL.createObjectURL(img))
          setProfilePictureFlag(true)
          setProfilePictureUrl(img)
          setShowSubmit(true)
       }
    }
 
-   const uploadPicture = () => {
+   const uploadPicture = () => {      
       const uploadTask = storage.ref(`pictures/${profilePictureUrl.name}`).put(profilePictureUrl);
       console.log("uploading this" + profilePictureUrl)
       uploadTask.on(
@@ -137,18 +141,15 @@ export default function Profile() {
          },
 
          () => {
-            storage.ref("pictures").child(profilePictureUrl.name).getDownloadURL().then(url => console.log(url))
+            storage.ref("pictures").child(profilePictureUrl.name).getDownloadURL().then(setProfilePicture(previewPic))
          }
-
       )
       usersRef.get().then((doc) => {
          if (doc.exists && bio !== "") {
             usersRef.set({
                ProfilePicture : profilePictureUrl.name
             }, { merge: true })
-            // setBio("This is bio lmao")
          } else {
-               // doc.data() will be undefined in this case
                console.log("No such document!");
          }
       }).catch((error) => {
@@ -168,7 +169,7 @@ export default function Profile() {
                   <Card>
                      <Card.Body>
                         <Container fluid >
-                           {profilePictureFlag && <Image fluid roundedCircle src={profilePicture}></Image>}
+                           {profilePictureFlag && <Image style={{   height: "150px", width: "150px"}}  fluid src={profilePicture}></Image>}
                            {!profilePictureFlag && <Image id="avatar" src={Avatar}></Image>}
                         </Container>
                            <h2  style={{fontFamily: "Verdana"}}>{userName}</h2>
@@ -185,17 +186,18 @@ export default function Profile() {
 
          <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-               <Modal.Title>Modal heading</Modal.Title>
+               <Modal.Title>Edit Personal Info</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            
-            
                <Container className="justify-content-md-center text-center">
                   <div>
-                  {profilePictureFlag && <Image onClick = {() => inputRef.current.click()} style={{   height: "80px", width: "80px"}} fluid roundedCircle src={profilePicture}></Image>}
+                  {profilePictureFlag && <Image onClick = {() => inputRef.current.click()} style={{   height: "80px", width: "80px"}} fluid roundedCircle src={previewPic}></Image>}
                   {!profilePictureFlag && <Image onClick = {() => inputRef.current.click()} id="avatar" src={Avatar}></Image>}
                   </div>
                   {showSubmit && <Button onClick = {uploadPicture}> Submit Picture</Button>}
+                  <div>
+                  {/* <Button onClick = {removePicture}> Submit Picture</Button> */}
+                  </div>
                </Container>
                <Form  onSubmit= {handleSubmit} ref = {formRef1}>
                   <Form.Group id="email">
