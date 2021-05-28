@@ -16,7 +16,9 @@ export default function Profile() {
    const [bio, setBio] = useState("")
 
    const inputRef = useRef()
-   const [name, setName] = useState()
+   const [firstName, setFirstName] = useState()
+   const [lastName, setLastName] = useState()
+
    const [showSubmit, setShowSubmit] = useState(false)
 
    const [show, setShow] = useState()
@@ -68,8 +70,8 @@ export default function Profile() {
       usersRef.get().then((doc) => {
          if (doc.exists) {
             setBio(doc.data().bio)
-            setName(doc.data().name)
-            console.log("HERE", doc.data().username)
+            setFirstName(doc.data().firstName)
+            setLastName(doc.data().lastName)
             setUserName(doc.data().username)
             storage.ref('pictures').child(doc.data().ProfilePicture).getDownloadURL().then((temp) => {setProfilePicture(temp);
                                                          setPreviewPic(temp)})
@@ -88,7 +90,6 @@ export default function Profile() {
    }, [])
 
    useEffect(() => {
-      console.log("bio is ", bio)
       changeBio(bio)
    }, [bio])
 
@@ -133,7 +134,7 @@ export default function Profile() {
 
    const uploadPicture = () => {      
       const uploadTask = storage.ref(`pictures/${profilePictureUrl.name}`).put(profilePictureUrl);
-      console.log("uploading this" + profilePictureUrl)
+      // console.log("uploading this" + profilePictureUrl)
       uploadTask.on(
          "state_changed ",
          snap_shot => {},
@@ -164,21 +165,21 @@ export default function Profile() {
          <Navigation update={() => {}} display={false}/>
             
          <Container fluid style={{width : "100vw"}}>
-            <Row className="justify-content-md-center text-center">
+            <Row className="justify-content-md-center">
                <Col className="justify-content-md-center">
-                  <Card>
-                     <Card.Body>
-                        <Container fluid >
-                           {profilePictureFlag && <Image style={{   height: "150px", width: "150px"}}  fluid src={profilePicture}></Image>}
+                  <Container fluid >
+                     <Row >
+                        <Col xs={3} className="justify-content-md-center">
+                           {profilePictureFlag && <Image style={{height: "350px", width: "350px"}} roundedCircle fluid src={profilePicture}></Image>}
                            {!profilePictureFlag && <Image id="avatar" src={Avatar}></Image>}
-                        </Container>
-                           <h2  style={{fontFamily: "Verdana"}}>{userName}</h2>
-                           
+                           <Button fluid style={{width : "200px", marginLeft:"65px", marginTop:"10px"}}onClick={handleShow}>Edit Profile</Button>
+                        </Col>
+                        <Col xs={9} className="justify-content-md-center">
+                           <h2 style={{fontFamily: "Verdana"}}>{userName}</h2>
                            <h2 style={{fontFamily: "Verdana"}}>{bio}</h2>
-                        
-                           <Button onClick={handleShow}>Edit </Button>
-                     </Card.Body>
-                  </Card>
+                        </Col>
+                     </Row>
+                  </Container>
                </Col>
             </Row>
          </Container>

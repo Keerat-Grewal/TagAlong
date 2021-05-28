@@ -12,13 +12,15 @@ export function AuthProvider({children}){
    const [currentUser, setCurrentUser] = useState()
    const [loading, setLoading] = useState(true)
 
-   function signup(email, password, userName){
+   function signup(email, password, userName, firstName, lastName){
       return auth.createUserWithEmailAndPassword(email, password).then(registeredUser => {
          firestore.collection("users").doc(registeredUser.user.uid)
          .set({
             uid: registeredUser.user.uid,
             username: userName,
-            bio : ""
+            bio : "",
+            firstName: firstName,
+            lastName : lastName 
          })
        })
    }
