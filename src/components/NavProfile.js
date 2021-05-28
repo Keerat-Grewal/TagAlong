@@ -4,6 +4,7 @@ import  { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import Avatar from '../profile_avatar2.jpg';
 import {firestore, storage} from './Firebase';
+import ReactStars from "react-rating-stars-component";
 
 export default function NavProfile() {
    const { currentUser, logOut } = useAuth()

@@ -7,7 +7,7 @@ import { Button, Container, Form, Image, Row, Card, Modal, Col} from 'react-boot
 import Avatar from '../profile_avatar2.jpg';
 import { set } from 'ol/transform';
 import '../styles/profile.css';
-
+import ReactStars from "react-rating-stars-component";
 
 export default function Profile() {
    const { currentUser} = useAuth()
@@ -163,11 +163,18 @@ export default function Profile() {
                         </Col>
                         <Col xs={9} className="justify-content-md-center" style={{wordWrap: "break-word"}}>
                            {/* need to figure out how many stars will be checked */}
-                           <span className="fa fa-star checked"></span>
+                           {/* <span className="fa fa-star checked"></span>
                            <span className="fa fa-star checked"></span>
                            <span className="fa fa-star checked"></span>
                            <span className="fa fa-star"></span>
-                           <span className="fa fa-star"></span>
+                           <span className="fa fa-star"></span> */}
+                             <ReactStars
+                                 count={5}
+                                 value={4}
+                                 size={24}
+                                 activeColor="#ffd700"
+                                 edit={false}/>,
+
                            <h2 style={{fontFamily: "Verdana"}}>{"Ratings/Reviews"}</h2>
                            {/* need to add the actual reviews here */}
                         </Col>
