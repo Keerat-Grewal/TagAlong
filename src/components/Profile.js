@@ -40,31 +40,13 @@ export default function Profile() {
             // setBio("This is bio lmao")
          } else {
                // doc.data() will be undefined in this case
-               console.log("No such document!");
+               console.log("No such document! change bio");
          }
       }).catch((error) => {
          console.log("Error getting document:", error);
 
       });
    }
-
-   function changeName(){
-      usersRef.get().then((doc) => {
-         if (doc.exists && bio !== "") {
-            usersRef.set({
-               name : name
-            }, { merge: true })
-            // setBio("This is bio lmao")
-         } else {
-               // doc.data() will be undefined in this case
-               console.log("No such document!");
-         }
-      }).catch((error) => {
-         console.log("Error getting document:", error);
-
-      });
-   }
-
 
    useEffect(() => {
       usersRef.get().then((doc) => {
@@ -81,22 +63,17 @@ export default function Profile() {
          } 
          else {
             // doc.data() will be undefined in this case
-               console.log("No such document!");
+            console.log("No such document! useEffect");
          }
       }).catch((error) => {
-         console.log("Error getting document:", error);
-   });
+            console.log("Error getting document:", error);
+         });
 
    }, [])
 
    useEffect(() => {
       changeBio(bio)
    }, [bio])
-
-   useEffect(() => {
-      changeName(name)
-   }, [name])
-
 
 
    const handleClose = () => {
@@ -151,7 +128,7 @@ export default function Profile() {
                ProfilePicture : profilePictureUrl.name
             }, { merge: true })
          } else {
-               console.log("No such document!");
+               console.log("No such document! uploadPicture");
          }
       }).catch((error) => {
          console.log("Error getting document:", error);
@@ -175,7 +152,7 @@ export default function Profile() {
                            <Button fluid style={{width : "200px", marginLeft:"65px", marginTop:"10px"}}onClick={handleShow}>Edit Profile</Button>
                         </Col>
                         <Col xs={9} className="justify-content-md-center">
-                           <h2 style={{fontFamily: "Verdana"}}>{userName}</h2>
+                           <h2 style={{fontFamily: "Verdana"}}>{firstName}</h2>
                            <h2 style={{fontFamily: "Verdana"}}>{bio}</h2>
                         </Col>
                      </Row>
