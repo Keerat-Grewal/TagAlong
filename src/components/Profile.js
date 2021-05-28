@@ -178,9 +178,9 @@ export default function Profile() {
                                  activeColor="#E84F11"
                                  edit={false}/>},
 
-                           <h2 style={{fontFamily: "Verdana"}}>{"Ratings/Reviews"}</h2>
-                           {userInfo && <h2 style={{fontFamily: "Verdana"}}>{"This profile has " + 
-                              userInfo.reviews.length + " Ratings/Reviews"}</h2>}
+                           {/* <h2 style={{fontFamily: "Verdana"}}>{"Ratings/Reviews"}</h2> */}
+                           {userInfo && <h2 style={{fontFamily: "Verdana"}}>{"Ratings/Reviews (" + 
+                              userInfo.reviews.length + ")"}</h2>}
                            
                            {/* need to add the actual reviews here */}
                         </Col>
