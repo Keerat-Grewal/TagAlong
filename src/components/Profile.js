@@ -6,6 +6,7 @@ import {firestore, storage} from './Firebase';
 import { Button, Container, Form, Image, Row, Card, Modal, Col} from 'react-bootstrap';
 import Avatar from '../profile_avatar2.jpg';
 import { set } from 'ol/transform';
+import '../styles/profile.css';
 
 
 export default function Profile() {
@@ -151,10 +152,24 @@ export default function Profile() {
                            {!profilePictureFlag && <Image id="avatar" src={Avatar}></Image>}
                            <Button fluid style={{width : "200px", marginLeft:"65px", marginTop:"10px", background: "#E84F11", border: "#E84F11"}}onClick={handleShow}>Edit Profile</Button>
                         </Col>
-                        <Col xs={9} className="justify-content-md-center">
+                        <Col xs={9} className="justify-content-md-center" style={{wordWrap: "break-word"}}>
                            <h2 style={{fontFamily: "Verdana"}}>{firstName + " " + lastName}</h2>
                            <h2 style={{fontFamily: "Verdana", color: "#E84F11", fontSize: "18pt"}}>{"@" + userName}</h2>
-                           <h2 style={{fontFamily: "Verdana", marginTop: "40px", wordWrap: "break-word"}}>{bio}</h2>
+                           <h2 style={{fontFamily: "Verdana", marginTop: "40px"}}>{bio}</h2>
+                        </Col>
+                     </Row>
+                     <Row >
+                        <Col xs={3} className="justify-content-md-center">
+                        </Col>
+                        <Col xs={9} className="justify-content-md-center" style={{wordWrap: "break-word"}}>
+                           {/* need to figure out how many stars will be checked */}
+                           <span className="fa fa-star checked"></span>
+                           <span className="fa fa-star checked"></span>
+                           <span className="fa fa-star checked"></span>
+                           <span className="fa fa-star"></span>
+                           <span className="fa fa-star"></span>
+                           <h2 style={{fontFamily: "Verdana"}}>{"Ratings/Reviews"}</h2>
+                           {/* need to add the actual reviews here */}
                         </Col>
                      </Row>
                   </Container>
