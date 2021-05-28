@@ -23,6 +23,7 @@ function MapContainer(props) {
     const [showModal, setModal] = useState(false);
     const ridesRef = firestore.collection('rides');
     const iconBase = "https://developers.google.com/maps/documentation/javascript/examples/full/images/";
+    const icon2 = "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
     //const [selectedPlace, setselectedPlace] = useState({});
     console.log("INSIDE GOOGLE MAP")
     const onMarkerClick = (props, marker, e) => {
@@ -135,7 +136,7 @@ function MapContainer(props) {
                                 position={m.coordinates}
                                 onClick={onMarkerClick}
                                 title={''}
-                                name={<p>Name: {m.first} {m.last} <br/>
+                                name={<p style={{fontFamily: "Verdana"}}>Name: {m.first} {m.last} <br/>
                                         Contact Info: {m.username} <br/>
                                         Destination: {m.dest} <br/><br/>
                                         {m.desc}</p>}/>
