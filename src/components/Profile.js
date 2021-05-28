@@ -30,7 +30,8 @@ export default function Profile() {
    const [previewPic, setPreviewPic] = useState(undefined)
 
    const [profilePictureUrl, setProfilePictureUrl] = useState()
-   
+   const [userInfo, setUserInfo] = useState()
+
    const usersRef = firestore.collection('users').doc(currentUser.uid);
    function changeBio(){
       usersRef.get().then((doc) => {
@@ -52,6 +53,8 @@ export default function Profile() {
    useEffect(() => {
       usersRef.get().then((doc) => {
          if (doc.exists) {
+            console.log(doc.data())
+            setUserInfo(doc.data())
             setBio(doc.data().bio)
             setFirstName(doc.data().firstName)
             setLastName(doc.data().lastName)
@@ -124,7 +127,7 @@ export default function Profile() {
          }
       )
       usersRef.get().then((doc) => {
-         if (doc.exists && bio !== "") {
+         if (doc.exists) {
             usersRef.set({
                ProfilePicture : profilePictureUrl.name
             }, { merge: true })
@@ -168,14 +171,17 @@ export default function Profile() {
                            <span className="fa fa-star checked"></span>
                            <span className="fa fa-star"></span>
                            <span className="fa fa-star"></span> */}
-                             <ReactStars
+                             {userInfo && <ReactStars
                                  count={5}
-                                 value={4}
+                                 value={userInfo.Stars}
                                  size={24}
-                                 activeColor="#ffd700"
-                                 edit={false}/>,
+                                 activeColor="#E84F11"
+                                 edit={false}/>},
 
                            <h2 style={{fontFamily: "Verdana"}}>{"Ratings/Reviews"}</h2>
+                           {userInfo && <h2 style={{fontFamily: "Verdana"}}>{"This profile has " + 
+                              userInfo.reviews.length + " Ratings/Reviews"}</h2>}
+                           
                            {/* need to add the actual reviews here */}
                         </Col>
                      </Row>

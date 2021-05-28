@@ -3,6 +3,7 @@ import {Button, Form, Col, Modal, Image, Row, Container} from 'react-bootstrap';
 import Avatar from '../avatar3_clear.png';
 import { useAuth } from '../contexts/AuthContext';
 import {firestore, storage} from './Firebase';
+import ReactStars from "react-rating-stars-component";
 
 export default function FindProfile() {
 
@@ -70,6 +71,11 @@ export default function FindProfile() {
         }
      }, [userInfo])
 
+     const onChange = (newRating) => {
+
+
+     } 
+
     return (
         <>
             <Button id="ride-btn" style={{marginLeft: 10, background: "#E84F11", border: "#E84F11"}} onClick={() => setModal(true)}>
@@ -110,9 +116,21 @@ export default function FindProfile() {
                                 <h2 style={{fontFamily: "Verdana"}}>{userInfo.firstName + " " + userInfo.lastName}</h2>
                                 <h2 style={{fontFamily: "Verdana", color: "#E84F11", fontSize: "18pt"}}>{"@" + userInfo.username}</h2>
                                 <h2 style={{fontFamily: "Verdana", marginTop: "40px", wordWrap: "break-word", fontSize: "12pt"}}>{userInfo.bio}</h2>
+                             
+                                 <ReactStars
+                                    count={5}
+                                    // onChange={ratingChanged}
+                                    size={24}
+                                    activeColor="#E84F11"
+                                 />
+                                 <Form>
+                                    <Form.Group id="email">
+                                       <Form.Control placeholder="Add a review!" name = "myForm"></Form.Control >
+                                    </Form.Group>
+                                 </Form>        
                             </Col>
                         </Row>
-                    
+
                     </Container>}
                 {/* {!showUser && <p> User does not exist! </p>} */}
                 <Modal.Footer>

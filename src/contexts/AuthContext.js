@@ -20,7 +20,10 @@ export function AuthProvider({children}){
             username: userName,
             bio : "",
             firstName: firstName,
-            lastName : lastName 
+            lastName : lastName,
+            numberReviews : 0,
+            reviews : []
+
          })
        })
    }
