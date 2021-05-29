@@ -176,14 +176,14 @@ export default function Profile() {
                                  value={userInfo.Stars}
                                  size={24}
                                  activeColor="#E84F11"
-                                 edit={false}/>},
+                                 edit={false}/>}
 
                            {/* <h2 style={{fontFamily: "Verdana"}}>{"Ratings/Reviews"}</h2> */}
                            {userInfo && <h2 style={{fontFamily: "Verdana"}}>{"Ratings/Reviews (" + 
                               userInfo.reviews.length + ")"}</h2>}
       
                            {userInfo && userInfo.reviews.map(item => (
-                              <li key={item.id}>{item.value}</li>
+                              <li key={item.id}>{item.review}</li>
                            ))}
                         </Col>
                      </Row>

@@ -4,6 +4,7 @@ import Avatar from '../avatar3_clear.png';
 import { useAuth } from '../contexts/AuthContext';
 import {firestore, storage} from './Firebase';
 import ReactStars from "react-rating-stars-component";
+import firebase from 'firebase/app'
 
 export default function FindProfile() {
 
@@ -38,7 +39,9 @@ export default function FindProfile() {
                 querySnapshot.forEach((doc) => {
                     // doc.data() is never undefined for query doc snapshots
                     setUser(true);
+
                     setUserInfo(doc.data());
+                    setReviews(doc.data().reviews)
                 });
             })
             .catch((error) => {
@@ -79,35 +82,55 @@ export default function FindProfile() {
 
      }
 
-     useEffect(() => {
-         const usersRef = firestore.collection('users').doc(userInfo.uid);
+   //   useEffect(() => {
+   //       const usersRef = firestore.collection('users').doc(userInfo.uid);
             
-         usersRef.get().then((doc) => {
-            if (doc.exists) {
-               usersRef.set({
-                  Stars : rating,
-                  reviews : reviews
-               }, { merge: true })
-               // setBio("This is bio lmao")
-            } else {
-                  // doc.data() will be undefined in this case
-                  console.log("No such document! FIND PROFILE");
-            }
-         }).catch((error) => {
-               console.log("Error getting document:", error);
-            });
-         },
-         [reviews.length])
+   //       usersRef.get().then((doc) => {
+   //          if (doc.exists) {
+   //             usersRef.set({
+   //                Stars : rating,
+   //                reviews : reviews
+   //             }, { merge: true })
+   //             // setBio("This is bio lmao")
+   //          } else {
+   //                // doc.data() will be undefined in this case
+   //                console.log("No such document! FIND PROFILE");
+   //          }
+   //       }).catch((error) => {
+   //             console.log("Error getting document:", error);
+   //          });
+   //          console.log(reviews)
+   //       },
+   //       [reviews.length])
 
      const submitReview = (e) => {
          e.preventDefault()
          console.log("value form" + reviewRef.current.value)
-         setReviews([...reviews, {
-            id : reviews.length,
-            value : reviewRef.current.value
-         }])
-         console.log(reviews)
          
+         // setReviews(reviews => {return [...reviews, {
+         //    id : reviews.length,
+         //    value : reviewRef.current.value
+         // }]})
+
+         const usersRef = firestore.collection('users').doc(userInfo.uid);   
+         usersRef.update({
+            reviews: firebase.firestore.FieldValue.arrayUnion({review: reviewRef.current.value, timestamp: new Date()})
+        });
+         // const usersRef = firestore.collection('users').doc(userInfo.uid)
+         // usersRef.get().then((doc) => {
+         //    if (doc.exists) {
+         //       usersRef.set({
+         //          Stars : rating,
+         //          reviews : reviews
+         //       }, { merge: true })
+         //       // setBio("This is bio lmao")
+         //    } else {
+         //          // doc.data() will be undefined in this case
+         //          console.log("No such document! FIND PROFILE");
+         //    }
+         // }).catch((error) => {
+         //       console.log("Error getting document:", error);
+         //    });
      }
 
     return (
@@ -162,9 +185,7 @@ export default function FindProfile() {
                                        <Form.Control ref = {reviewRef} placeholder="Add a review!" name = "myForm"></Form.Control>
                                     </Form.Group>
                                  </Form>
-                                 <ul>
-                                    {reviews.map(review => (<li key = {review.id}>{review.value}</li>))}   
-                                 </ul>        
+         
                             </Col>
                         </Row>
 
