@@ -29,7 +29,7 @@ export default function Profile() {
    const [profilePictureUrl, setProfilePictureUrl] = useState()
    const [userInfo, setUserInfo] = useState()
    const [userReviews, setUserReviews] = useState([])
-   
+
    const usersRef = firestore.collection('users').doc(currentUser.uid);
 
    function changeBio(){
@@ -169,23 +169,10 @@ export default function Profile() {
                            {!profilePictureFlag && <Image id="avatar" src={Avatar}></Image>}
                            <Button fluid style={{width : "200px", marginLeft:"65px", marginTop:"10px", background: "#E84F11", border: "#E84F11"}}onClick={handleShow}>Edit Profile</Button>
                         </Col>
-                        <Col xs={9} className="justify-content-md-center" style={{wordWrap: "break-word"}}>
+                        <Col xs={6} className="justify-content-md-center" style={{wordWrap: "break-word"}}>
                            <h2 style={{fontFamily: "Verdana"}}>{firstName + " " + lastName}</h2>
                            <h2 style={{fontFamily: "Verdana", color: "#E84F11", fontSize: "18pt"}}>{"@" + userName}</h2>
-                           <h2 style={{fontFamily: "Verdana", marginTop: "40px"}}>{bio}</h2>
-                        </Col>
-                     </Row>
-                     <Row >
-                        <Col xs={3} className="justify-content-md-center">
-                        </Col>
-                        <Col xs={9} className="justify-content-md-center" style={{wordWrap: "break-word"}}>
-                           {/* need to figure out how many stars will be checked */}
-                           {/* <span className="fa fa-star checked"></span>
-                           <span className="fa fa-star checked"></span>
-                           <span className="fa fa-star checked"></span>
-                           <span className="fa fa-star"></span>
-                           <span className="fa fa-star"></span> */}
-                             {userInfo && <ReactStars
+                           {userInfo && <ReactStars
                                  count={5}
                                  value={userInfo.stars}
                                  size={24}
@@ -194,18 +181,18 @@ export default function Profile() {
                                  isHalf={true}
                                  />
                                  }
-
-                           {/* <h2 style={{fontFamily: "Verdana"}}>{"Ratings/Reviews"}</h2> */}
-                           {userInfo && <h2 style={{fontFamily: "Verdana"}}>{"Ratings/Reviews (" + 
-                              userInfo.reviews.length + ")"}</h2>}
-
+                           <h2 style={{fontFamily: "Verdana", marginTop: "40px"}}>{bio}</h2>
+                        </Col>
+                        <Col xs={3}>
+                           {userInfo && <h2 style={{fontFamily: "Verdana", fontSize: "18pt"}}>{"Ratings & Reviews (" + 
+                                 userInfo.reviews.length + ")"}</h2>}
                            {userReviews.map((temp, index) => {
-                              return (
-                              <div key={index}>
-                                 <Image style={{height: "50px", width: "50px", marginRight:"5px"}} roundedCircle src={temp.picture}></Image>
-                                 {temp.review}
-                              </div>
-                           )})}
+                                 return (
+                                 <div key={index}>
+                                    <Image style={{height: "50px", width: "50px", marginRight:"5px"}} roundedCircle src={temp.picture}></Image>
+                                    {temp.review}
+                                 </div>
+                              )})}
                         </Col>
                      </Row>
                   </Container>
