@@ -5,6 +5,7 @@
     import {firestore, storage} from './Firebase';
     import ReactStars from "react-rating-stars-component";
     import firebase from 'firebase/app'
+    import  { Link, useHistory } from 'react-router-dom'
 
     export default function FindProfile() {
 
@@ -20,7 +21,7 @@
     const reviewRef = useRef()
     const [currentUserReview, setCurrentUserReview] = useState()
     const formRef = useRef()
-    
+    const history = useHistory()
     
     
         
@@ -226,9 +227,15 @@
                                         <Form.Control ref = {reviewRef} placeholder="Add a review!" name = "myForm"></Form.Control>
                                     </Form.Group>
                                     <Button style={{border : "#E84F11", backgroundColor: "#E84F11"}}type="submit" onClick={submitReview}>Submit</Button>
-
-                                </Form>
         
+                                </Form>
+                                <Button  style={{marginTop : "20px", border : "#E84F11", backgroundColor: "#E84F11"}} onClick={() => history.push({
+                                    pathname : "/otherProfile",
+                                    state : {
+                                        userInfo : userInfo,
+                                        profilePicture : profilePicture
+                                    }
+                                })}>See full profile</Button>
                             </Col>
                         </Row>
 

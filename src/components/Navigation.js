@@ -31,7 +31,7 @@ export default function Navigation(props) {
         {/* <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand> */}
         <Navbar.Brand>
            <Link to = "/">
-            <Image id="logo" src={Logo} />
+               <Image id="logo" src={Logo} />
             </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

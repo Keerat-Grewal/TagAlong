@@ -14,7 +14,7 @@
    width: 100%;
    border: solid 1px #EEE;
    display: flex;
-   flex-direction: column-reverse;
+   flex-direction: column;
    padding: 10px;
    overflow-y: scroll;
    position: relative;
