@@ -74,7 +74,12 @@ export default function Profile() {
                   build.push({
                      id : curr_review.username,
                      review : curr_review.review,
-                     picture : link});
+                     picture : link,
+                     rating : curr_review.rating,
+                     firstName : curr_review.firstName,
+                     lastName : curr_review.lastName,
+                     username : curr_review.username
+                  });
                }
                setUserReviews(build)
             }
@@ -169,7 +174,7 @@ export default function Profile() {
                            {!profilePictureFlag && <Image id="avatar" src={Avatar}></Image>}
                            <Button fluid style={{width : "200px", marginLeft:"65px", marginTop:"10px", background: "#E84F11", border: "#E84F11"}}onClick={handleShow}>Edit Profile</Button>
                         </Col>
-                        <Col xs={6} className="justify-content-md-center" style={{wordWrap: "break-word"}}>
+                        <Col xs={5} className="justify-content-center" style={{wordWrap: "break-word"}}>
                            <h2 style={{fontFamily: "Verdana"}}>{firstName + " " + lastName}</h2>
                            <h2 style={{fontFamily: "Verdana", color: "#E84F11", fontSize: "18pt"}}>{"@" + userName}</h2>
                            {userInfo && <ReactStars
@@ -183,16 +188,57 @@ export default function Profile() {
                                  }
                            <h2 style={{fontFamily: "Verdana", marginTop: "40px"}}>{bio}</h2>
                         </Col>
-                        <Col xs={3}>
+                        <Col xs={4}>
                            {userInfo && <h2 style={{fontFamily: "Verdana", fontSize: "18pt"}}>{"Ratings & Reviews (" + 
                                  userInfo.reviews.length + ")"}</h2>}
-                           {userReviews.map((temp, index) => {
-                                 return (
-                                 <div key={index}>
-                                    <Image style={{height: "50px", width: "50px", marginRight:"5px"}} roundedCircle src={temp.picture}></Image>
-                                    {temp.review}
+                           <flexContainer id="reviewsBox">
+                              {userReviews.map((temp, index) => {
+                                    return (
+                                    <div key={index}>
+                                       <Card>
+                                          <Card.Body>
+                                             <Container >
+                                                <Row>
+                                                   <Col xs={2}>                                                  
+                                                      <Image style={{height: "50px", width: "50px", marginRight:"5px"}} roundedCircle src={temp.picture}></Image>   
+                                                   </Col>
+                                                   <Col>
+                                                      <div>
+                                                         {temp.firstName + " " + temp.lastName}
+                                                      </div>
+                                                      <div style={{fontFamily: "Verdana", color: "#E84F11"}}>
+                                                         {"@" + temp.username}
+                                                      </div>
+                                                   </Col>
+                                                </Row>
+                                                <Row>
+                                                   <ReactStars
+                                                         count={5}
+                                                         value={temp.rating}
+                                                         size={24}
+                                                         activeColor="#E84F11"
+                                                         edit={false}
+                                                         isHalf={true}
+                                                      />
+                                                </Row>
+                                                <div style={{marginLeft : "-12px", wordWrap: "break-word"}}>
+                                                   {temp.review}
+                                                </div>
+                                          
+                                             </Container>
+                                          </Card.Body>
+                                    
+                                       {/* <Row >
+                                          <Col style={{wordWrap: "break-word"}}>
+                                             {temp.review}
+                                          </Col>
+                                       </Row> */}
+                                    </Card>
                                  </div>
+                           
+
                               )})}
+                           </flexContainer>
                         </Col>
                      </Row>
                   </Container>
