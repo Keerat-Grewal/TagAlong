@@ -122,7 +122,10 @@ export default function FindProfile() {
          console.log((userInfo.reviews.length + 1))
          usersRef.update({
             Stars : newRating,
-            reviews: firebase.firestore.FieldValue.arrayUnion({review: reviewRef.current.value, timestamp: new Date()})
+            reviews: firebase.firestore.FieldValue.arrayUnion({review: reviewRef.current.value, rating : rating, firstName : userInfo.firstName,
+               lastName : userInfo.lastName,
+               timestamp: new Date(),
+               username : userInfo.userName})
         });
          // const usersRef = firestore.collection('users').doc(userInfo.uid)
          // usersRef.get().then((doc) => {

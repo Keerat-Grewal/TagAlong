@@ -185,10 +185,13 @@ export default function Profile() {
                            {/* <h2 style={{fontFamily: "Verdana"}}>{"Ratings/Reviews"}</h2> */}
                            {userInfo && <h2 style={{fontFamily: "Verdana"}}>{"Ratings/Reviews (" + 
                               userInfo.reviews.length + ")"}</h2>}
-      
+
+                           <Container>
                            {userInfo && userInfo.reviews.map(item => (
-                              <li key={item.id}>{item.review}</li>
+                              <Row style={{fontFamily: "Verdana", fontSize: "18pt", wordWrap: "break-word"}} 
+                              key={item.id}>{item.review}</Row>
                            ))}
+                           </Container>
                         </Col>
                      </Row>
                   </Container>
