@@ -178,11 +178,13 @@ export default function Profile() {
                                  activeColor="#E84F11"
                                  edit={false}/>},
 
-                           <h2 style={{fontFamily: "Verdana"}}>{"Ratings/Reviews"}</h2>
-                           {userInfo && <h2 style={{fontFamily: "Verdana"}}>{"This profile has " + 
-                              userInfo.reviews.length + " Ratings/Reviews"}</h2>}
-                           {userInfo && <ul>{userInfo.reviews.map(review => (<div key = {review.id}>{review.value}</div>))}  </ul>  }
-                           {/* need to add the actual reviews here */}
+                           {/* <h2 style={{fontFamily: "Verdana"}}>{"Ratings/Reviews"}</h2> */}
+                           {userInfo && <h2 style={{fontFamily: "Verdana"}}>{"Ratings/Reviews (" + 
+                              userInfo.reviews.length + ")"}</h2>}
+      
+                           {userInfo && userInfo.reviews.map(item => (
+                              <li key={item.id}>{item.value}</li>
+                           ))}
                         </Col>
                      </Row>
                   </Container>
