@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {Button, Form, Col, Modal, Image, Row, Container} from 'react-bootstrap';
 import Avatar from '../avatar3_clear.png';
 import { useAuth } from '../contexts/AuthContext';
@@ -15,6 +15,9 @@ export default function FindProfile() {
     const [formValue, setFormValue] = useState({username: ""});
     const [profilePicture, setProfilePicture] = useState(undefined);
     const [profilePictureFlag, setProfilePictureFlag] = useState(false);
+    const [rating, setRating] = useState()
+    const reviewRef = useRef()
+    const [reviews, setReviews] = useState([])
 
     const handleHide = () => {
         setModal(false);
@@ -71,10 +74,41 @@ export default function FindProfile() {
         }
      }, [userInfo])
 
-     const onChange = (newRating) => {
+     const ratingChanged = (newRating) => {
+      setRating(((userInfo.Stars * userInfo.reviews.length) + newRating)/(userInfo.reviews.length + 1))
 
+     }
 
-     } 
+     useEffect(() => {
+         const usersRef = firestore.collection('users').doc(userInfo.uid);
+            
+         usersRef.get().then((doc) => {
+            if (doc.exists) {
+               usersRef.set({
+                  Stars : rating,
+                  reviews : reviews
+               }, { merge: true })
+               // setBio("This is bio lmao")
+            } else {
+                  // doc.data() will be undefined in this case
+                  console.log("No such document! FIND PROFILE");
+            }
+         }).catch((error) => {
+               console.log("Error getting document:", error);
+            });
+         },
+         [reviews.length])
+
+     const submitReview = (e) => {
+         e.preventDefault()
+         console.log("value form" + reviewRef.current.value)
+         setReviews([...reviews, {
+            id : reviews.length,
+            value : reviewRef.current.value
+         }])
+         console.log(reviews)
+         
+     }
 
     return (
         <>
@@ -119,15 +153,18 @@ export default function FindProfile() {
                              
                                  <ReactStars
                                     count={5}
-                                    // onChange={ratingChanged}
+                                    onChange={ratingChanged}
                                     size={24}
                                     activeColor="#E84F11"
                                  />
-                                 <Form>
+                                 <Form onSubmit={submitReview} >
                                     <Form.Group id="email">
-                                       <Form.Control placeholder="Add a review!" name = "myForm"></Form.Control >
+                                       <Form.Control ref = {reviewRef} placeholder="Add a review!" name = "myForm"></Form.Control>
                                     </Form.Group>
-                                 </Form>        
+                                 </Form>
+                                 <ul>
+                                    {reviews.map(review => (<li key = {review.id}>{review.value}</li>))}   
+                                 </ul>        
                             </Col>
                         </Row>
 

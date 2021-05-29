@@ -181,7 +181,7 @@ export default function Profile() {
                            <h2 style={{fontFamily: "Verdana"}}>{"Ratings/Reviews"}</h2>
                            {userInfo && <h2 style={{fontFamily: "Verdana"}}>{"This profile has " + 
                               userInfo.reviews.length + " Ratings/Reviews"}</h2>}
-                           
+                           {userInfo && <ul>{userInfo.reviews.map(review => (<div key = {review.id}>{review.value}</div>))}  </ul>  }
                            {/* need to add the actual reviews here */}
                         </Col>
                      </Row>
