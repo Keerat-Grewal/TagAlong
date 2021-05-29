@@ -8,40 +8,34 @@ import Avatar from '../profile_avatar2.jpg';
 import { set } from 'ol/transform';
 import '../styles/profile.css';
 import ReactStars from "react-rating-stars-component";
+import { connect } from 'net';
 
 export default function Profile() {
    const { currentUser} = useAuth()
 
    const formRef1 = useRef()
    const bioRef = useRef()
-   const [bio, setBio] = useState("")
-
    const inputRef = useRef()
+
+   const [bio, setBio] = useState("")
    const [firstName, setFirstName] = useState()
    const [lastName, setLastName] = useState()
-
    const [showSubmit, setShowSubmit] = useState(false)
-
    const [show, setShow] = useState()
    const [userName, setUserName] = useState()
-
    const [profilePicture, setProfilePicture] = useState(undefined)
    const [profilePictureFlag, setProfilePictureFlag] = useState(false)
    const [previewPic, setPreviewPic] = useState(undefined)
-
    const [profilePictureUrl, setProfilePictureUrl] = useState()
    const [userInfo, setUserInfo] = useState()
-
-   const [reviewerPic, setReviewerPic] = useState()
-
+   const [userReviews, setUserReviews] = useState([])
+   
    const usersRef = firestore.collection('users').doc(currentUser.uid);
 
-   const [userReviews, setUserReviews] = useState([])
-
-   const firebasePictures = storage.ref("pictures")
    function changeBio(){
       usersRef.get().then((doc) => {
          if (doc.exists && bio !== "") {
+            console.log("Inside real bio")
             usersRef.set({
                bio : bio
             }, { merge: true })
@@ -69,10 +63,22 @@ export default function Profile() {
                                                          setPreviewPic(temp)})
             setProfilePictureFlag(true)
 
-            // userInfo.reviews.map(())
-            // setProfilePicture(b)
-            // setPreviewPic(b)
-
+            const getReviews = async () => {
+               const build = []
+               //const link = await storage.ref('pictures').child("IMG").getDownloadURL();
+               const reviews = doc.data().reviews;
+               for(let i in reviews) {
+                  console.log(reviews[i])
+                  const curr_review = reviews[i]
+                  const link = await storage.ref('pictures').child(curr_review.reviewerPic).getDownloadURL();
+                  build.push({
+                     id : curr_review.username,
+                     review : curr_review.review,
+                     picture : link});
+               }
+               setUserReviews(build)
+            }
+            getReviews()
          } 
          else {
             // doc.data() will be undefined in this case
@@ -87,17 +93,6 @@ export default function Profile() {
       changeBio(bio)
    }, [bio])
 
-   useEffect(() => {
-      if(userInfo)
-         userInfo.reviews.map(async(temp) => {
-            storage.ref('pictures').child(temp.reviewerPic).getDownloadURL().then((temp) => setReviewerPic(temp))
-            setUserReviews(temp1 => {return [...temp1, {
-            id : temp.username,
-            review : temp.review,
-            picture : reviewerPic
-         }]})})
-      console.log(userReviews)
-   }, [userInfo])
 
    const handleClose = () => {
       setShow(false); 
@@ -160,18 +155,6 @@ export default function Profile() {
       setShowSubmit(false)
    }
 
-  const helper = (item) => {
-
-      // firebasePictures.child(item.reviewerPic).getDownloadURL().then((temp) => setReviewerPic((temp1) => {return temp}))
-      // console.log("hi")
-      return (
-         <Row style={{fontFamily: "Verdana", fontSize: "18pt", wordWrap: "break-word"}} 
-         key={item.id}>{item.review}
-         {/* <Image src = {reviewerPic}></Image> */}
-         </Row>
-      )
-   }
-
    return (
       <div>
          <Navigation update={() => {}} display={false}/>
@@ -216,17 +199,13 @@ export default function Profile() {
                            {userInfo && <h2 style={{fontFamily: "Verdana"}}>{"Ratings/Reviews (" + 
                               userInfo.reviews.length + ")"}</h2>}
 
-                           <Container>
-                           {/* {userInfo && userInfo.reviews.map(helper)} */}
-                           {userReviews.map(temp => {
+                           {userReviews.map((temp, index) => {
                               return (
-                              <div key={temp.id}>
+                              <div key={index}>
+                                 <Image style={{height: "50px", width: "50px", marginRight:"5px"}} roundedCircle src={temp.picture}></Image>
                                  {temp.review}
-                                 <Image src={temp.picture}></Image>
                               </div>
-                              
                            )})}
-                           </Container>
                         </Col>
                      </Row>
                   </Container>
