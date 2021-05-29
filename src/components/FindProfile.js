@@ -16,11 +16,12 @@ export default function FindProfile() {
     const [formValue, setFormValue] = useState({username: ""});
     const [profilePicture, setProfilePicture] = useState(undefined);
     const [profilePictureFlag, setProfilePictureFlag] = useState(false);
-    const [rating, setRating] = useState()
+    const [rating, setRating] = useState(0)
     const reviewRef = useRef()
     const [reviews, setReviews] = useState([])
 
     const handleHide = () => {
+        setUser("")
         setModal(false);
     }
 
@@ -78,6 +79,7 @@ export default function FindProfile() {
      }, [userInfo])
 
      const ratingChanged = (newRating) => {
+      setRating(newRating)
       setRating(((userInfo.Stars * userInfo.reviews.length) + newRating)/(userInfo.reviews.length + 1))
 
      }
@@ -113,7 +115,13 @@ export default function FindProfile() {
          // }]})
 
          const usersRef = firestore.collection('users').doc(userInfo.uid);   
+         const newRating = ((userInfo.Stars * userInfo.reviews.length) + rating)/(userInfo.reviews.length + 1)
+         console.log((userInfo.Stars * userInfo.reviews.length) + rating)
+         console.log(userInfo.Stars)
+         console.log(userInfo.reviews.length)
+         console.log((userInfo.reviews.length + 1))
          usersRef.update({
+            Stars : newRating,
             reviews: firebase.firestore.FieldValue.arrayUnion({review: reviewRef.current.value, timestamp: new Date()})
         });
          // const usersRef = firestore.collection('users').doc(userInfo.uid)
@@ -131,6 +139,7 @@ export default function FindProfile() {
          // }).catch((error) => {
          //       console.log("Error getting document:", error);
          //    });
+         setRating(0)
      }
 
     return (
