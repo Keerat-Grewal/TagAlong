@@ -32,7 +32,13 @@ export default function Profile() {
    const [profilePictureUrl, setProfilePictureUrl] = useState()
    const [userInfo, setUserInfo] = useState()
 
+   const [reviewerPic, setReviewerPic] = useState()
+
    const usersRef = firestore.collection('users').doc(currentUser.uid);
+
+   const [userReviews, setUserReviews] = useState([])
+
+   const firebasePictures = storage.ref("pictures")
    function changeBio(){
       usersRef.get().then((doc) => {
          if (doc.exists && bio !== "") {
@@ -62,8 +68,11 @@ export default function Profile() {
             storage.ref('pictures').child(doc.data().ProfilePicture).getDownloadURL().then((temp) => {setProfilePicture(temp);
                                                          setPreviewPic(temp)})
             setProfilePictureFlag(true)
+
+            // userInfo.reviews.map(())
             // setProfilePicture(b)
             // setPreviewPic(b)
+
          } 
          else {
             // doc.data() will be undefined in this case
@@ -72,13 +81,23 @@ export default function Profile() {
       }).catch((error) => {
             console.log("Error getting document:", error);
          });
-
    }, [])
 
    useEffect(() => {
       changeBio(bio)
    }, [bio])
 
+   useEffect(() => {
+      if(userInfo)
+         userInfo.reviews.map(async(temp) => {
+            storage.ref('pictures').child(temp.reviewerPic).getDownloadURL().then((temp) => setReviewerPic(temp))
+            setUserReviews(temp1 => {return [...temp1, {
+            id : temp.username,
+            review : temp.review,
+            picture : reviewerPic
+         }]})})
+      console.log(userReviews)
+   }, [userInfo])
 
    const handleClose = () => {
       setShow(false); 
@@ -141,6 +160,18 @@ export default function Profile() {
       setShowSubmit(false)
    }
 
+  const helper = (item) => {
+
+      // firebasePictures.child(item.reviewerPic).getDownloadURL().then((temp) => setReviewerPic((temp1) => {return temp}))
+      // console.log("hi")
+      return (
+         <Row style={{fontFamily: "Verdana", fontSize: "18pt", wordWrap: "break-word"}} 
+         key={item.id}>{item.review}
+         {/* <Image src = {reviewerPic}></Image> */}
+         </Row>
+      )
+   }
+
    return (
       <div>
          <Navigation update={() => {}} display={false}/>
@@ -173,13 +204,12 @@ export default function Profile() {
                            <span className="fa fa-star"></span> */}
                              {userInfo && <ReactStars
                                  count={5}
-                                 value={userInfo.Stars}
+                                 value={userInfo.stars}
                                  size={24}
                                  activeColor="#E84F11"
                                  edit={false}
                                  isHalf={true}
                                  />
-                                 
                                  }
 
                            {/* <h2 style={{fontFamily: "Verdana"}}>{"Ratings/Reviews"}</h2> */}
@@ -187,10 +217,15 @@ export default function Profile() {
                               userInfo.reviews.length + ")"}</h2>}
 
                            <Container>
-                           {userInfo && userInfo.reviews.map(item => (
-                              <Row style={{fontFamily: "Verdana", fontSize: "18pt", wordWrap: "break-word"}} 
-                              key={item.id}>{item.review}</Row>
-                           ))}
+                           {/* {userInfo && userInfo.reviews.map(helper)} */}
+                           {userReviews.map(temp => {
+                              return (
+                              <div key={temp.id}>
+                                 {temp.review}
+                                 <Image src={temp.picture}></Image>
+                              </div>
+                              
+                           )})}
                            </Container>
                         </Col>
                      </Row>
