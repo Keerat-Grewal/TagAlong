@@ -252,6 +252,7 @@ export default function Profile() {
                <Modal.Title>Edit Personal Info</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+               <Form.Label>Add Photo</Form.Label>
                <Container className="justify-content-md-center text-center">
                   <div>
                   {profilePictureFlag && <Image onClick = {() => inputRef.current.click()} style={{height: "80px", width: "80px"}} fluid roundedCircle src={previewPic}></Image>}
