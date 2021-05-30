@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import {auth} from '../components/Firebase'
-import {firestore} from '../components/Firebase'
+import React, { useContext, useEffect, useState } from "react";
+import {auth} from "../components/Firebase";
+import {firestore} from "../components/Firebase";
 
 const AuthContext = React.createContext();
 
 export function useAuth(){
-   return useContext(AuthContext)
+   return useContext(AuthContext);
 }
 
 export function AuthProvider({children}){
-   const [currentUser, setCurrentUser] = useState()
-   const [loading, setLoading] = useState(true)
+   const [currentUser, setCurrentUser] = useState();
+   const [loading, setLoading] = useState(true);
 
    function signup(email, password, userName, firstName, lastName){
       return auth.createUserWithEmailAndPassword(email, password).then(registeredUser => {
@@ -23,27 +23,26 @@ export function AuthProvider({children}){
             lastName : lastName,
             numberReviews : 0,
             reviews : []
-
-         })
-       })
+         });
+       });
    }
 
    function login(email, password){
-      return auth.signInWithEmailAndPassword(email, password)
+      return auth.signInWithEmailAndPassword(email, password);
    }
 
    function logOut(){
-      return auth.signOut()
+      return auth.signOut();
    }
 
    useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged(user => {
-         setCurrentUser(user)
-         setLoading(false)
-      })
+         setCurrentUser(user);
+         setLoading(false);
+      });
 
-      return unsubscribe
-   }, [])
+      return unsubscribe;
+   }, []);
 
    
 
@@ -52,7 +51,7 @@ export function AuthProvider({children}){
       signup,
       login,
       logOut
-   }
+   };
 
    
    return (
@@ -61,5 +60,5 @@ export function AuthProvider({children}){
             {!loading && children}
          </AuthContext.Provider>
       </div>
-   )
+   );
 }

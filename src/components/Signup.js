@@ -1,10 +1,10 @@
 
-import React, {useRef, useState} from 'react'
-import {Alert, Card, Button, Form, FormControl, Container, Image, Col} from 'react-bootstrap'
-import { useAuth } from '../contexts/AuthContext'
-import {Link, useHistory} from 'react-router-dom'
-import Logo from '../logo_3.png';
-import Background from '../background_3.jpeg'
+import React, {useRef, useState} from "react";
+import {Alert, Card, Button, Form, Container, Image, Col} from "react-bootstrap";
+import { useAuth } from "../contexts/AuthContext";
+import {Link, useHistory} from "react-router-dom";
+import Logo from "../logo_3.png";
+import Background from "../background_3.jpeg";
 
 export default function Signup(){
    const emailRef = useRef();
@@ -12,40 +12,40 @@ export default function Signup(){
    const passwordConfirmRef = useRef();
    const userNameRef = useRef();
    const {signup, currentUser } = useAuth();
-   const [error, setError] = useState('');
+   const [error, setError] = useState("");
    const [loading, setLoading] = useState(false);
    const history = useHistory();
    const firstNameRef = useRef();
    const lastNameRef = useRef();
 
    async function handleSubmit(e){
-      e.preventDefault()
+      e.preventDefault();
       if(passwordRef.current.value !== passwordConfirmRef.current.value){
          return setError("Passwords do not match");
       }  
       
       try{
-         setError("")
-         setLoading(true)
+         setError("");
+         setLoading(true);
          await signup(emailRef.current.value, passwordRef.current.value, userNameRef.current.value, 
-            firstNameRef.current.value, lastNameRef.current.value)
-         history.push('/')
+            firstNameRef.current.value, lastNameRef.current.value);
+         history.push("/");
       } catch(error){
          console.log(error);
-         setError(error.message)
+         setError(error.message);
       }
-      setLoading(false)
+      setLoading(false);
    }
 
    return (
 
       <Container fluid className = "d-flex align-items-center justify-content-center"
       style={{         
-         backgroundPosition: 'center',
-         backgroundSize: 'cover',
-         backgroundRepeat: 'no-repeat',
-         width: '100vw',
-         height: '100vh',
+         backgroundPosition: "center",
+         backgroundSize: "cover",
+         backgroundRepeat: "no-repeat",
+         width: "100vw",
+         height: "100vh",
          backgroundImage: `url(${Background})`}}>
          <div className="w-100" style = {{maxWidth : "400px"}}>
             <Image style={{marginLeft: "auto", width:"100%"}} src={Logo}/>
@@ -92,8 +92,6 @@ export default function Signup(){
                </Card.Body>
             </Card>
          </div>
-      
       </Container>
-
-   )
+   );
 }
