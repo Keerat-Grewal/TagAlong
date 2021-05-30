@@ -1,42 +1,38 @@
-    import React, {useState, useEffect, useRef} from 'react';
-    import {Button, Form, Col, Modal, Image, Row, Container} from 'react-bootstrap';
-    import Avatar from '../avatar3_clear.png';
-    import { useAuth } from '../contexts/AuthContext';
-    import {firestore, storage} from './Firebase';
+    import React, {useState, useEffect, useRef} from "react";
+    import {Button, Form, Col, Modal, Image, Row, Container} from "react-bootstrap";
+    import Avatar from "../avatar3_clear.png";
+    import { useAuth } from "../contexts/AuthContext";
+    import {firestore, storage} from "./Firebase";
     import ReactStars from "react-rating-stars-component";
-    import firebase from 'firebase/app'
-    import  { Link, useHistory } from 'react-router-dom'
+    import firebase from "firebase/app";
+    import  {useHistory } from "react-router-dom";
 
     export default function FindProfile() {
 
-    const {signup, currentUser} = useAuth();
+    const {currentUser} = useAuth();
     const [showModal, setModal] = useState(false);
     const [showUser, setUser] = useState(false);
-    const [showError, setError] = useState(false);
-    const [userInfo, setUserInfo] = useState('');
+    const [userInfo, setUserInfo] = useState("");
     const [formValue, setFormValue] = useState({username: ""});
     const [profilePicture, setProfilePicture] = useState(undefined);
     const [profilePictureFlag, setProfilePictureFlag] = useState(false);
-    const [rating, setRating] = useState(0)
-    const reviewRef = useRef()
-    const [currentUserReview, setCurrentUserReview] = useState()
-    const formRef = useRef()
-    const history = useHistory()
-    
-    
-        
+    const [rating, setRating] = useState(0);
+    const reviewRef = useRef();
+    const [currentUserReview, setCurrentUserReview] = useState();
+    const formRef = useRef();
+    const history = useHistory();
 
     const handleHide = () => {
-        setUser("")
+        setUser("");
         setModal(false);
-    }
+    };
 
     const handleChange = (e) => {
         setFormValue({ 
             ...formValue, 
             [e.target.id]: e.target.value
         });
-    }
+    };
 
     const handleClick = () => {
         //console.log(formValue.username);
@@ -53,40 +49,19 @@
                 console.log("Error getting documents: ", error);
                 setUser(false);
             });
-    }
-
+    };
 
     useEffect(() => {
-        // usersRef.get().then((doc) => {
-        //    if (doc.exists) {
-        //       setBio(doc.data().bio)
-        //       setFirstName(doc.data().firstName)
-        //       setLastName(doc.data().lastName)
-        //       setUserName(doc.data().username)
-        //       storage.ref('pictures').child(doc.data().ProfilePicture).getDownloadURL().then((temp) => {setProfilePicture(temp);
-        //                                                    setPreviewPic(temp)})
-        //       setProfilePictureFlag(true)
-        //       // setProfilePicture(b)
-        //       // setPreviewPic(b)
-        //    } 
-        //    else {
-        //       // doc.data() will be undefined in this case
-        //       console.log("No such document! useEffect");
-        //    }
-        // }).catch((error) => {
-        //       console.log("Error getting document:", error);
-        //    });
-        if(userInfo !== '' && setUser) {
-            storage.ref('pictures').child(userInfo.ProfilePicture).getDownloadURL().then((temp) => {setProfilePicture(temp);});
+        if(userInfo !== "" && setUser) {
+            storage.ref("pictures").child(userInfo.ProfilePicture).getDownloadURL().then((temp) => {setProfilePicture(temp);});
             setProfilePictureFlag(true);
         }
-    }, [userInfo])
+    }, [userInfo]);
 
     useEffect(() => {
-        firestore.collection('users').doc(currentUser.uid).get().then((doc) => {
+        firestore.collection("users").doc(currentUser.uid).get().then((doc) => {
             if (doc.exists) {
-                setCurrentUserReview(doc.data())
-    
+                setCurrentUserReview(doc.data());
             }
             else {
                 // doc.data() will be undefined in this case
@@ -95,54 +70,26 @@
         }
         ).catch((error) => {
             console.log("Error getting document:", error);
-        })
-    }, [])
+        });
+    }, []);
 
 
     const ratingChanged = (newRating) => {
-    setRating(newRating)
-    // setRating(((userInfo.stars * userInfo.reviews.length) + newRating)/(userInfo.reviews.length + 1))
-
-    }
-
-    //   useEffect(() => {
-    //       const usersRef = firestore.collection('users').doc(userInfo.uid);
-            
-    //       usersRef.get().then((doc) => {
-    //          if (doc.exists) {
-    //             usersRef.set({
-    //                Stars : rating,
-    //                reviews : reviews
-    //             }, { merge: true })
-    //             // setBio("This is bio lmao")
-    //          } else {
-    //                // doc.data() will be undefined in this case
-    //                console.log("No such document! FIND PROFILE");
-    //          }
-    //       }).catch((error) => {
-    //             console.log("Error getting document:", error);
-    //          });
-    //          console.log(reviews)
-    //       },
-    //       [reviews.length])
+        setRating(newRating);
+    };
 
     const submitReview = (e) => {
-        e.preventDefault()
-        console.log("value form" + reviewRef.current.value)
-        
-        // setReviews(reviews => {return [...reviews, {
-        //    id : reviews.length,
-        //    value : reviewRef.current.value
-        // }]})
+        e.preventDefault();
+        console.log("value form" + reviewRef.current.value);
 
-        const usersRef = firestore.collection('users');   
-        console.log(usersRef)
-        const newRating = ((userInfo.stars * userInfo.reviews.length) + rating)/(userInfo.reviews.length + 1)
+        const usersRef = firestore.collection("users");   
+        console.log(usersRef);
+        const newRating = ((userInfo.stars * userInfo.reviews.length) + rating)/(userInfo.reviews.length + 1);
         // console.log((userInfo.Stars * userInfo.reviews.length) + rating)
         // console.log(userInfo.Stars)
         // console.log(userInfo.reviews.length)
         // console.log((userInfo.reviews.length + 1))
-        console.log(userInfo)
+        console.log(userInfo);
         usersRef.doc(userInfo.uid).update({
             stars : newRating,
             reviews: firebase.firestore.FieldValue.arrayUnion({review: reviewRef.current.value, rating : rating, firstName : currentUserReview.firstName,
@@ -150,30 +97,11 @@
                 timestamp: new Date(),
                 username : currentUserReview.username,
                 reviewerPic : currentUserReview.ProfilePicture})
-            // reviews: firebase.firestore.FieldValue.arrayUnion({review: reviewRef.current.value, 
-            //    rating : rating,
-            //    timestamp: new Date(),
-            //    username : userInfo.username
-            // })
         });
-        // const usersRef = firestore.collection('users').doc(userInfo.uid)
-        // usersRef.get().then((doc) => {
-        //    if (doc.exists) {
-        //       usersRef.set({
-        //          Stars : rating,
-        //          reviews : reviews
-        //       }, { merge: true })
-        //       // setBio("This is bio lmao")
-        //    } else {
-        //          // doc.data() will be undefined in this case
-        //          console.log("No such document! FIND PROFILE");
-        //    }
-        // }).catch((error) => {
-        //       console.log("Error getting document:", error);
-        //    });
-        setRating(0)
-        formRef.current.reset()
-    }
+
+        setRating(0);
+        formRef.current.reset();
+    };
 
     return (
         <>
