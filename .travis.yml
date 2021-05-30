@@ -1,10 +1,10 @@
 language: node_js
 node_js:
-  - 11.6.0
+  - 12.18.1
 cache: yarn
 
 install:
-  - yarn
+  - yarn install
 
 script:
   - yarn test
