@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import {Button, Form, Col, Container, Row} from "react-bootstrap";
+import {Button, Form, Col} from "react-bootstrap";
 import "../styles/chat.css";
 import {firestore} from "./Firebase";
 import {auth} from "./Firebase";
@@ -10,7 +10,6 @@ import firebase from "firebase/app";
 export default function Chat(props) {
    const {signup, currentUser} = useAuth();
    const [username, setUsername] = useState("");
-   const [receiver, setReceiver] = useState("");
    const [messages, setMessages] = useState([]);
    const [formValue, setFormValue] = useState("");
    const [formValue2, setFormValue2] = useState("");
@@ -56,7 +55,7 @@ export default function Chat(props) {
                   //create a new doc
                   messagesRef.doc(key).set({
                      message: []
-                  })
+                  });
                   messagesRef.doc(key)
                   .onSnapshot({
                      includeMetadataChanges: true
@@ -73,7 +72,7 @@ export default function Chat(props) {
       }).catch((error) => {
          console.log("Error getting document:", error);
       });
-   }
+   };
 
    const handleSubmit2 = (e) => {
       // send message to firebase
@@ -82,7 +81,7 @@ export default function Chat(props) {
          message: firebase.firestore.FieldValue.arrayUnion({id: currentUser.uid, message: formValue2, timestamp: new Date()})
       });
       formRef.current.reset();
-   }
+   };
 
    const handleChange = (event) => {
       //console.log(event.target.name);
@@ -91,7 +90,7 @@ export default function Chat(props) {
       if(event.target.name === "message-form"){
          setFormValue2(event.target.value);
       }
-   }
+   };
 
    useEffect(() => {
       usersRef.get().then((doc) => {
@@ -155,14 +154,14 @@ export default function Chat(props) {
 function ChatMessage(props) {
    var messageClass = "";
    if(props.uid === auth.currentUser.uid) {
-      messageClass = 'sent';
+      messageClass = "sent";
    }
    else{
-      messageClass = 'received';
+      messageClass = "received";
    }
    return ( 
       <div className={`message ${messageClass}`}>
          <p>{props.message}</p>
       </div>
-   )
+   );
 }
