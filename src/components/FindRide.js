@@ -1,30 +1,18 @@
 
-import React, { useRef, useState, useEffect, createRef} from 'react';
-import {Button, Form, Col, Modal, Container, Row} from 'react-bootstrap';
-import Searchbar from './Searchbar';
-import {firestore} from './Firebase';
-import {auth} from './Firebase';
-import { useAuth } from '../contexts/AuthContext'
-
+import React, {useRef, useState} from "react";
+import {Button, Form, Col, Modal} from "react-bootstrap";
+import Searchbar from "./Searchbar";
 
 export default function FindRide(props) {
-    const {signup, currentUser} = useAuth();
     const [showModal, setModal] = useState(false);
     const [formValue, setFormValue] = useState({destination: ""});
 
     const searchRef = useRef(null); 
 
-    const handleClick = () => {
-        setModal(false);
-        // do firebase stuff ok
-        console.log(formValue);
-        console.log("CLICKED MODAL")
-    }
-
     const handleHide = () => {
         console.log(formValue);
         setModal(false);
-    }
+    };
 
     const handleChange = (e) => {
         if(e.target.id === "destination") {
@@ -35,10 +23,9 @@ export default function FindRide(props) {
                 ...formValue, 
                 [e.target.id]: currentState.state.name
             });
-            props.update(currentState.state.name)
-            
+            props.update(currentState.state.name);
         }
-    }
+    };
 
     return (
         <>
