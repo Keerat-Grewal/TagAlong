@@ -24,6 +24,7 @@ export default function Signup(){
          return setError("Passwords do not match");
       }  
       
+      
       try{
          setError("");
          setLoading(true);
@@ -73,7 +74,7 @@ export default function Signup(){
                         <Form.Control type = "email" ref={emailRef} required></Form.Control>
                      </Form.Group>
                      <Form.Group id="username">
-                        <Form.Label>User Name</Form.Label>
+                        <Form.Label>Username</Form.Label>
                         <Form.Control ref={userNameRef} required></Form.Control>
                      </Form.Group>                  
                      <Form.Group id="Password">
