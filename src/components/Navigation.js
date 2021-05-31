@@ -1,29 +1,26 @@
-
-import React, {useState, useEffect} from 'react';
-import {Button, Form, FormControl} from 'react-bootstrap';
-import {Navbar, Nav, NavDropdown, Image, NavItem, Modal} from 'react-bootstrap';
-import {useAuth} from '../contexts/AuthContext';
-import Logo from '../logo_3.png';
-import '../styles/navigation.css';
-import CreateRide from './Ride';
-import FindRide from './FindRide';
-import NavProfile from './NavProfile';
-import FindProfile from './FindProfile';
-import Reset from '../reset_button3.png';
-import {Link} from 'react-router-dom';
+import React, {useState, useEffect} from "react";
+import {Navbar, Nav, Image} from "react-bootstrap";
+import Logo from "../logo_3.png";
+import "../styles/navigation.css";
+import CreateRide from "./Ride";
+import FindRide from "./FindRide";
+import NavProfile from "./NavProfile";
+import FindProfile from "./FindProfile";
+import Reset from "../reset_button3.png";
+import {Link} from "react-router-dom";
 
 
 export default function Navigation(props) {
 
-    const [filter, setFilter] = useState(''); 
+    const [filter, setFilter] = useState(""); 
 
     const handleClick = () => {
         setFilter("");
-    }
+    };
 
     useEffect(() => {
         if(props.filter !== null)
-            props.update(filter)
+            props.update(filter);
     }, [filter]);
 
     return(
@@ -53,6 +50,6 @@ export default function Navigation(props) {
         <NavProfile/>
       </Navbar>
 
-    )
+    );
     
 }

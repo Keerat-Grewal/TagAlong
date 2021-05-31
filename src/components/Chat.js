@@ -7,8 +7,8 @@ import { useAuth } from "../contexts/AuthContext";
 import firebase from "firebase/app";
 
 
-export default function Chat(props) {
-   const {signup, currentUser} = useAuth();
+export default function Chat() {
+   const {currentUser} = useAuth();
    const [username, setUsername] = useState("");
    const [messages, setMessages] = useState([]);
    const [formValue, setFormValue] = useState("");

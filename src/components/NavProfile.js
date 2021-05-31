@@ -1,26 +1,22 @@
-import React, {useState, useEffect} from 'react'
-import {Navbar, Nav, Form, FormControl, Button, NavDropdown, Image, NavItem} from 'react-bootstrap'
-import  { Link, useHistory } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
-import Avatar from '../profile_avatar2.jpg';
-import {firestore, storage} from './Firebase';
-import ReactStars from "react-rating-stars-component";
+import React, {useState, useEffect} from "react";
+import {NavDropdown, Image} from "react-bootstrap";
+import  { useHistory } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import Avatar from "../profile_avatar2.jpg";
+import {firestore, storage} from "./Firebase";
+
 
 export default function NavProfile() {
-   const { currentUser, logOut } = useAuth()
-   const [error, setError] = useState()
-   const history = useHistory()
-   const [profilePicture, setProfilePicture] = useState(Avatar)
+   const { currentUser, logOut } = useAuth();
+   const [error, setError] = useState();
+   const history = useHistory();
+   const [profilePicture, setProfilePicture] = useState(Avatar);
    
-   function goProfile(){
-      history.push("/profile")
-   }
-
-   const usersRef = firestore.collection('users').doc(currentUser.uid)
+   const usersRef = firestore.collection("users").doc(currentUser.uid);
    useEffect(() => {
       usersRef.get().then((doc) => {
          if (doc.exists) {
-            storage.ref('pictures').child(doc.data().ProfilePicture).getDownloadURL().then((temp) => {setProfilePicture(temp);})
+            storage.ref("pictures").child(doc.data().ProfilePicture).getDownloadURL().then((temp) => {setProfilePicture(temp);});
             // setProfilePicture(b)
             // setPreviewPic(b)
          } 
@@ -32,12 +28,12 @@ export default function NavProfile() {
             console.log("Error getting document:", error);
          });
 
-   }, [])
+   }, []);
 
    async function handleLogOut(){
-      setError('')
+      setError("");
 
-   //    const usersRef = firestore.collection('users').doc(currentUser.uid);
+   //    const usersRef = firestore.collection("users").doc(currentUser.uid);
    //    usersRef.get().then((doc) => {
    //       if (doc.exists) {
    //          console.log("Document data:", doc.data().field);
@@ -51,11 +47,11 @@ export default function NavProfile() {
   
       
       try{  
-         await logOut()
-         history.push('/login')
-      }catch(error){
-         setError(error.message)
-   
+         await logOut();
+         history.push("/login");
+      }catch(error1){
+         setError(error1.message);
+         console.log(error);
       }
    }
 
@@ -84,5 +80,5 @@ export default function NavProfile() {
          <NavDropdown.Item onClick = {handleLogOut}>Logout</NavDropdown.Item>
       </NavDropdown> 
       </div>
-   )
+   );
 }

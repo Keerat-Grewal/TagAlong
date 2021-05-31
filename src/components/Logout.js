@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
-import { useAuth } from '../contexts/AuthContext'
-import {Alert, Card, Button, Form, FormControl, Container} from 'react-bootstrap'
-import {Link, useHistory} from 'react-router-dom'
+import React, {useState} from "react"
+import { useAuth } from "../contexts/AuthContext"
+import {Alert, Card, Button, Form, FormControl, Container} from "react-bootstrap"
+import {Link, useHistory} from "react-router-dom"
 
-import {firestore} from './Firebase';
+import {firestore} from "./Firebase";
 
 export default function Logout() {
 
@@ -12,9 +12,9 @@ export default function Logout() {
    const history = useHistory()
 
    async function handleLogOut(){
-      setError('')
+      setError("")
 
-   //    const usersRef = firestore.collection('users').doc(currentUser.uid);
+   //    const usersRef = firestore.collection("users").doc(currentUser.uid);
    //    usersRef.get().then((doc) => {
    //       if (doc.exists) {
    //          console.log("Document data:", doc.data().field);
@@ -29,7 +29,7 @@ export default function Logout() {
       
       try{  
          await logOut()
-         history.push('/login')
+         history.push("/login")
       }catch(error){
          setError(error.message)
    

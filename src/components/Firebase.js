@@ -1,8 +1,8 @@
 //add firebase - did yarn add firebase
-import firebase from 'firebase/app'
+import firebase from "firebase/app";
 import "firebase/auth";
-import 'firebase/firestore';
-import "firebase/storage"
+import "firebase/firestore";
+import "firebase/storage";
 
 
 // const app = firebase.initializeApp({
@@ -21,9 +21,9 @@ import "firebase/storage"
   storageBucket: "auth-development-7fe87.appspot.com",
   messagingSenderId: "484580128274",
   appId: "1:484580128274:web:ff76676cabe68069be0acb"
-})
+});
 
-export const storage = firebase.storage()
+export const storage = firebase.storage();
 export const auth = app.auth();
 export const firestore = app.firestore();
 export default app;

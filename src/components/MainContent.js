@@ -1,11 +1,11 @@
-import React, { useRef, useState, useEffect } from 'react';
-import Navigation from './Navigation'
-import Chat from './Chat'
-import MapContainer from './GoogleMap'
+import React, {useState} from "react";
+import Navigation from "./Navigation";
+import Chat from "./Chat";
+import MapContainer from "./GoogleMap";
 
 
 export default function MainContent() {
-    const [filter, setFilter] = useState('');
+    const [filter, setFilter] = useState("");
     
     return (
         <div className="App">
@@ -15,7 +15,7 @@ export default function MainContent() {
         {/* <CreateRide></CreateRide> */}
         <Chat></Chat>
     </div>
-   )
+   );
 }
 
 

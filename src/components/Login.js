@@ -1,45 +1,45 @@
 
-import React, {useRef, useState} from 'react'
-import {Alert, Card, Button, Form, FormControl, Container, Image} from 'react-bootstrap'
-import { useAuth } from '../contexts/AuthContext'
-import  { Link, useHistory } from 'react-router-dom'
-import Logo from '../logo_3.png';
-import Background from '../background_3.jpeg'
+import React, {useRef, useState} from "react";
+import {Alert, Card, Button, Form, Container, Image} from "react-bootstrap";
+import { useAuth } from "../contexts/AuthContext";
+import  { Link, useHistory } from "react-router-dom";
+import Logo from "../logo_3.png";
+import Background from "../background_3.jpeg";
 
 export default function Login(){
    const emailRef = useRef();
    const passwordRef = useRef();
    const {login } = useAuth();
-   const [error, setError] = useState('');
+   const [error, setError] = useState("");
    const [loading, setLoading] = useState(false);
-   const history = useHistory()
+   const history = useHistory();
 
 
    async function handleSubmit(e){
-      e.preventDefault()
+      e.preventDefault();
 
       
       try{
-         setError("")
-         setLoading(true)
-         await login(emailRef.current.value, passwordRef.current.value)
-         history.push('/')
+         setError("");
+         setLoading(true);
+         await login(emailRef.current.value, passwordRef.current.value);
+         history.push("/");
       } catch(error){
          console.log(error);
-         setError(error.message)
+         setError(error.message);
       }
-      setLoading(false)
+      setLoading(false);
    }
 
    return (
 
       <Container fluid className = "d-flex align-items-center justify-content-center"
       style={{         
-         backgroundPosition: 'center',
-         backgroundSize: 'cover',
-         backgroundRepeat: 'no-repeat',
-         width: '100vw',
-         height: '100vh',
+         backgroundPosition: "center",
+         backgroundSize: "cover",
+         backgroundRepeat: "no-repeat",
+         width: "100vw",
+         height: "100vh",
          backgroundImage: `url(${Background})`}}>
 
         <div className="w-100" style = {{maxWidth : "400px"}}>
@@ -68,5 +68,5 @@ export default function Login(){
       
       </Container>
 
-   )
+   );
 }

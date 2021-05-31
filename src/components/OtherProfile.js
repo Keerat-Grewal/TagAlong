@@ -1,33 +1,29 @@
-import React, { useState, useEffect, useRef } from 'react'
-import Navigation from './Navigation'
-import { useAuth } from '../contexts/AuthContext'
+import React, { useState, useEffect} from "react";
+import Navigation from "./Navigation";
+import { storage} from "./Firebase";
+import {Container, Image, Row, Card, Col} from "react-bootstrap";
+import Avatar from "../profile_avatar2.jpg";
 
-import { storage} from './Firebase';
-import {Container, Form, Image, Row, Card, Modal, Col} from 'react-bootstrap';
-import Avatar from '../profile_avatar2.jpg';
-
-import '../styles/profile.css';
+import "../styles/profile.css";
 import ReactStars from "react-rating-stars-component";
 
 
 export default function OtherProfile(props) {
-   const userInfo = props.location.state.userInfo
-   const profilePicture = props.location.state.profilePicture
+   const userInfo = props.location.state.userInfo;
+   const profilePicture = props.location.state.profilePicture;
 
-   const [show, setShow] = useState()
-
-   const [userReviews, setUserReviews] = useState([])
+   const [userReviews, setUserReviews] = useState([]);
 
 
    useEffect(() => {
 
             const getReviews = async () => {
-               const build = []
+               const build = [];
                const reviews = userInfo.reviews;
                for(let i in reviews) {
-                  console.log(reviews[i])
-                  const curr_review = reviews[i]
-                  const link = await storage.ref('pictures').child(curr_review.reviewerPic).getDownloadURL();
+                  // console.log(reviews[i]);
+                  const curr_review = reviews[i];
+                  const link = await storage.ref("pictures").child(curr_review.reviewerPic).getDownloadURL();
                   build.push({
                      id : curr_review.username,
                      review : curr_review.review,
@@ -38,19 +34,10 @@ export default function OtherProfile(props) {
                      username : curr_review.username
                   });
                }
-               setUserReviews(build)
-            }
-            getReviews()
-         }, [])
-
-
-
-   const handleClose = () => {
-      setShow(false); 
-   }
-   
-   const handleShow = () => (setShow(true))
-
+               setUserReviews(build);
+            };
+            getReviews();
+         }, []);
   
    return (
 
@@ -123,7 +110,7 @@ export default function OtherProfile(props) {
                                  </div>
                            
 
-                              )})}
+                              );})}
                            </flexContainer>
                         </Col>
                      </Row>
@@ -132,5 +119,5 @@ export default function OtherProfile(props) {
             </Row>
          </Container>
          </div>
-   )
+   );
 }
