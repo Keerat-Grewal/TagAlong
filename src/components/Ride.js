@@ -8,7 +8,7 @@ import firebase from "firebase/app";
 import useGeoLocation from "./Location";
 
 export default function CreateRide() {
-   const currentUser = useAuth();
+   const {currentUser} = useAuth();
    const [showModal, setModal] = useState(false);
    const location = useGeoLocation();
    
