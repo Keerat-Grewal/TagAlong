@@ -228,8 +228,7 @@ export default function Profile() {
                                        </Row> */}
                                     </Card>
                                  </div>
-                           
-                              );})};
+                              );})}
                            </flexContainer>
                         </Col>
                      </Row>
