@@ -9,7 +9,7 @@ import "../styles/profile.css";
 import ReactStars from "react-rating-stars-component";
 
 export default function Profile() {
-   const { currentUser} = useAuth();
+   const {currentUser} = useAuth();
    const formRef1 = useRef();
    const bioRef = useRef();
    const inputRef = useRef();
@@ -60,7 +60,7 @@ export default function Profile() {
 
             const getReviews = async () => {
                const build = [];
-               //const link = await storage.ref("pictures").child("IMG").getDownloadURL();
+               //const link = await storage.ref('pictures').child("IMG").getDownloadURL();
                const reviews = doc.data().reviews;
                for(let i in reviews) {
                   console.log(reviews[i]);
@@ -228,8 +228,7 @@ export default function Profile() {
                                        </Row> */}
                                     </Card>
                                  </div>
-                           
-                              );})};
+                              );})}
                            </flexContainer>
                         </Col>
                      </Row>
