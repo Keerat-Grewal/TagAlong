@@ -1,7 +1,7 @@
-//import { render, screen } from '@testing-library/react';
-//import { Navbar } from 'react-bootstrap';
-//import App from './App';
-//import Navigation from './components/Navigation';
+import { render, screen } from '@testing-library/react';
+import { Navbar } from 'react-bootstrap';
+import App from './App';
+import Navigation from './components/Navigation';
 
 //import { TableFooter } from "@material-ui/core";
 
@@ -18,6 +18,11 @@ it('basic test', () => {
 it('render',() => {
    expect(false).toBeFalsy();
    })
+
+it("renders correctly", () => {
+      const {queryByTestId, queryByPlaceholderName} = render(<Navbar/>)
+      expect(queryByTestId("navbar")).toBeTruthy;
+  })
 
 //it('jest', () => {
 //   expext(TableFooter).toBeTruthy();
