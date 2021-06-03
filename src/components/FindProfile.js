@@ -149,7 +149,7 @@
                             <Col xs={6}>
                                 <h2 style={{fontFamily: "Verdana"}}>{userInfo.firstName + " " + userInfo.lastName}</h2>
                                 <h2 style={{fontFamily: "Verdana", color: "#E84F11", fontSize: "18pt"}}>{"@" + userInfo.username}</h2>
-                                <h2 style={{fontFamily: "Verdana", marginTop: "40px", wordWrap: "break-word", fontSize: "12pt"}}>{userInfo.bio}</h2>
+                                <h2 style={{fontFamily: "Verdana", marginTop: "20px", marginBottom: "20px", wordWrap: "break-word", fontSize: "12pt"}}>{userInfo.bio}</h2>
                             
                                 <ReactStars
                                     count={5}
