@@ -32,7 +32,7 @@ export default function Login(){
    }
 
    return (
-
+      
       <Container fluid className = "d-flex align-items-center justify-content-center"
       style={{         
          backgroundPosition: "center",
@@ -42,7 +42,8 @@ export default function Login(){
          height: "100vh",
          backgroundImage: `url(${Background})`}}>
 
-        <div className="w-100" style = {{maxWidth : "400px"}}>
+        <div className="w-100" style = {{maxWidth : "500px"}}>
+           
             <Image style={{marginLeft: "auto", width:"100%"}} src={Logo}/>
             <Card style={{background: "#F2F2F2"}}>
                <Card.Body>
@@ -62,11 +63,14 @@ export default function Login(){
                   <div className = "w-100 test-center mt-2">
                      Need an account? <Link to = "/signup" style={{color: "#E84F11"}} > Sign Up</Link>
                   </div>
+                  
                </Card.Body>
+               
             </Card>
-         </div>
-      
-      </Container>
 
+         </div>
+         
+      </Container>
    );
+      
 }
