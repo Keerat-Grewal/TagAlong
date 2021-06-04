@@ -106,7 +106,7 @@
             timestamp: new Date(),
             username : currentUserReview.username,
             reviewerPic : currentUserReview.ProfilePicture});
-        setUserInfo({...userInfo, reviews: copyReviews });
+        setUserInfo({...userInfo, reviews: copyReviews, stars: newRating});
         formRef.current.reset();
     };
 
