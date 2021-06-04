@@ -8,6 +8,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import MainContent from "./components/MainContent";
 import Profile from "./components/Profile";
 import OtherProfile from "./components/OtherProfile";
+import Premium from "./components/Premium";
 
 function App() {
    return (
@@ -19,6 +20,7 @@ function App() {
                <PrivateRoute path = "/profile" component = {Profile} ></PrivateRoute>
                <PrivateRoute exact path = "/" component = {MainContent}></PrivateRoute>
                <PrivateRoute exact path = "/otherProfile" component = {OtherProfile}></PrivateRoute>
+               <PrivateRoute exact path = "/premium" component = {Premium}></PrivateRoute>
             </Switch>
          </AuthProvider>
       </Router>

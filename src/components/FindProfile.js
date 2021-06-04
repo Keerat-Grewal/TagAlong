@@ -100,6 +100,13 @@
         });
 
         setRating(0);
+        const copyReviews = userInfo.reviews.slice();
+        copyReviews.push({review: reviewRef.current.value, rating : rating, firstName : currentUserReview.firstName,
+            lastName : currentUserReview.lastName,
+            timestamp: new Date(),
+            username : currentUserReview.username,
+            reviewerPic : currentUserReview.ProfilePicture});
+        setUserInfo({...userInfo, reviews: copyReviews, stars: newRating});
         formRef.current.reset();
     };
 
@@ -142,7 +149,7 @@
                             <Col xs={6}>
                                 <h2 style={{fontFamily: "Verdana"}}>{userInfo.firstName + " " + userInfo.lastName}</h2>
                                 <h2 style={{fontFamily: "Verdana", color: "#E84F11", fontSize: "18pt"}}>{"@" + userInfo.username}</h2>
-                                <h2 style={{fontFamily: "Verdana", marginTop: "40px", wordWrap: "break-word", fontSize: "12pt"}}>{userInfo.bio}</h2>
+                                <h2 style={{fontFamily: "Verdana", marginTop: "20px", marginBottom: "20px", wordWrap: "break-word", fontSize: "12pt"}}>{userInfo.bio}</h2>
                             
                                 <ReactStars
                                     count={5}
@@ -154,8 +161,8 @@
                                     <Form.Group id="email">
                                         <Form.Control ref = {reviewRef} placeholder="Add a review!" name = "myForm"></Form.Control>
                                     </Form.Group>
-                                    <Button style={{border : "#E84F11", backgroundColor: "#E84F11"}}type="submit" onClick={submitReview}>Submit</Button>
-        
+                                    <Button style={{border : "#E84F11", backgroundColor: "#E84F11"}}type="submit">Submit</Button>
+    
                                 </Form>
                                 <Button  style={{marginTop : "20px", border : "#E84F11", backgroundColor: "#E84F11"}} onClick={() => history.push({
                                     pathname : "/otherProfile",

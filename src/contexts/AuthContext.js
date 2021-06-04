@@ -22,7 +22,8 @@ export function AuthProvider({children}){
             firstName: firstName,
             lastName : lastName,
             numberReviews : 0,
-            reviews : []
+            reviews : [],
+            premium: false
          });
        });
    }
