@@ -9,6 +9,12 @@ Travis CI Builds: https://travis-ci.com/github/Keerat-Grewal/TagAlong/builds
 
 ![image](src/diagram.png)
 
+Setup Instructions:
+1) clone repository
+2) run yarn on terminal to install all dependencies
+3) yarn start to launch localhost
+4) Refer below for differeny yarn features
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
