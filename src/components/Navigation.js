@@ -6,7 +6,8 @@ import CreateRide from "./Ride";
 import FindRide from "./FindRide";
 import NavProfile from "./NavProfile";
 import FindProfile from "./FindProfile";
-import ReportProfile from "./ReportProfile"
+import ReportProfile from "./ReportProfile";
+import Team from"./Team";
 import Reset from "../reset_button3.png";
 import {Link} from "react-router-dom";
 
@@ -47,6 +48,7 @@ export default function Navigation(props) {
           {props.display && <Image id="reset" src={Reset} onClick={handleClick}></Image>}
           {props.display && <FindProfile></FindProfile>}
           {props.display && <ReportProfile></ReportProfile>}
+          {props.display && <Team></Team>}
         </Navbar.Collapse>
         {/* <Logout></Logout> */}
         <NavProfile/>
