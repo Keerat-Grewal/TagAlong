@@ -1,7 +1,16 @@
+dist: trusty
+sudo: false
+
 language: node_js
 node_js:
-  - 12.18.1
-cache: yarn
+  - "10"
+
+addons:
+  chrome: stable
+
+cache:
+  directories:
+     - ./node_modules
 
 install:
   - yarn install
@@ -9,10 +18,6 @@ install:
 script:
   - CI=false yarn run build
 
-deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN
-  local_dir: build
-  on:
-    branch: main
+after_success:
+  - yarn add -g firebase-tools
+  - firebase deploy --token "$FIREBASE_TOKEN"
