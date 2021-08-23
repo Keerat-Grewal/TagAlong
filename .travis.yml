@@ -13,11 +13,11 @@ cache:
      - ./node_modules
 
 install:
-  - yarn install
+  - npm install
 
 script:
-  - CI=false yarn run build
+  - CI=false npm run build
 
 after_success:
-  - yarn add -g firebase-tools
+  - npm install -g firebase-tools
   - firebase deploy --token "$FIREBASE_TOKEN"
