@@ -1,15 +1,15 @@
-
-import React from "react";
-import "../styles/marker.css";
+import React from 'react';
+import '../styles/marker.css';
 
 const Marker = (props) => {
-    const { color, name, id } = props;
-    return (
-      <div className="marker"
-        style={{ backgroundColor: color, cursor: "pointer"}}
-        title={name}
-      />
-    );
-  };
+  const { color, name, id } = props;
+  return (
+    <div
+      className="marker"
+      style={{ backgroundColor: color, cursor: 'pointer' }}
+      title={name}
+    />
+  );
+};
 
-  export default Marker;
+export default Marker;

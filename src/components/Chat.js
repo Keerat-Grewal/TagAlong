@@ -1,9 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect} from 'react';
 import { Button, Form, Col } from 'react-bootstrap';
 import '../styles/chat.css';
 import firebase from 'firebase/app';
 import { firestore, auth } from './Firebase';
 import { useAuth } from '../contexts/AuthContext';
+
 
 export default function Chat() {
   const { currentUser } = useAuth();
@@ -17,7 +18,7 @@ export default function Chat() {
   const usersRef = firestore.collection('users').doc(currentUser.uid);
   const formRef = useRef();
 
-  //   console.log('START');
+//   console.log('START');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -121,7 +122,10 @@ export default function Chat() {
       </div>
       <flexContainer id="messagesBox">
         <div id="messages">
-          {messages && messages.map((msg, index) => <ChatMessage key={index} message={msg.message} uid={msg.id} />)}
+          {messages
+          && messages.map(
+            (msg, index) => <ChatMessage key={index} message={msg.message} uid={msg.id} />,
+          )}
         </div>
       </flexContainer>
       <div id="sendBox">
