@@ -7,7 +7,13 @@ Style Guide : https://eslint.org/
 
 Travis CI Builds: https://travis-ci.com/github/Keerat-Grewal/TagAlong/builds
 
-![image](https://user-images.githubusercontent.com/39412343/117198474-ec3fb180-ad9d-11eb-8b88-4a00f233c042.png)
+![image](src/diagram.png)
+
+Setup Instructions:
+1) clone repository
+2) run yarn on terminal to install all dependencies
+3) yarn start to launch localhost
+4) Refer below for different yarn features
 
 # Getting Started with Create React App
 
