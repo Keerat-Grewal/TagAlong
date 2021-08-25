@@ -40,7 +40,8 @@ export default function Login(){
          backgroundRepeat: "no-repeat",
          width: "100vw",
          height: "100vh",
-         backgroundImage: `url(${Background})`}}>
+         //backgroundImage: `url(${Background})`
+      }}>
 
         <div className="w-100" style = {{maxWidth : "500px"}}>
            
