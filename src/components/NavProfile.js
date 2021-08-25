@@ -14,8 +14,6 @@ export default function NavProfile() {
    const history = useHistory();
    const [profilePicture, setProfilePicture] = useState(Avatar);
    
-   console.log(currentUser);
-
    const usersRef = firestore.collection("users").doc(currentUser.uid);
    useEffect(() => {
       usersRef.get().then((doc) => {
